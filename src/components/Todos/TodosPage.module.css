@@ -1,0 +1,54 @@
+.tasks-button-panel{
+    display: flex;
+    align-items: flex-start;
+    width: 60vw;   
+}
+.tasks-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+button{
+    border: none;
+    background-color: white;
+    font-size: 1rem;
+    align-self: flex-start;
+}
+.todo-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    width: 60vw;
+    border-radius: 5px;
+    padding: 16px;
+    background-color: whitesmoke;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 15%);
+}
+.todo-card-details{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+
+}
+.card-details-btn{
+    outline: rgb(185, 185, 185) solid 1px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+.card-task-container{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+.right-part{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+.todo-delete-btn{
+    color: red;
+}

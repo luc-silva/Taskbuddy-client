@@ -1,0 +1,15 @@
+.app-header {
+    padding-left: 6rem;
+    padding-right: 6rem;
+    height: 10vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(100, 175, 225);
+}
+.app-header > a, .app-header > h1{
+    color: white;
+}
