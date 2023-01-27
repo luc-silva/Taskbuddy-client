@@ -1,16 +1,18 @@
-import styles from "./ProjectPage.module.css"
+import styles from "./ProjectPage.module.css";
 
 export const ProjectPage = () => {
     return (
         <div className={styles["project-page"]}>
-            <div className={styles["project-button-panel"]}>
-                <button className={styles["add-project-btn"]}>Add Project</button>
+            {/* <div className={styles["button-panel"]}>
+                <button className={styles["add-project-btn"]}>
+                    Add Project
+                </button>
             </div>
-            <div className={styles["project-display"]}>
-                <div className={styles["project-container"]}>
+            <div className={styles["projects-container"]}>
+                <div className={styles["project-card"]}>
                     <div>
-                        <div className={styles["project-name"]}></div>
-                        <div className={styles["project-info"]}></div>
+                        <div className={styles["project-name"]}>dsaasd</div>
+                        <div className={styles["project-info"]}>dasdasd</div>
                     </div>
                     <div className={styles["project-details"]}>
                         <strong>Details:</strong>
@@ -19,14 +21,18 @@ export const ProjectPage = () => {
                     <div className={styles["project-tasks"]}>
                         <strong>Tasks:</strong>
                         <div className={styles["project-tasks-container"]}>
-                            <div className={styles["project-task-card"]}>
-                                <div className={styles["project-task-maininfo"]}></div>
-                                <div className={styles["project-task-priority"]}></div>
+                            <div className={styles["task-card"]}>
+                                <div
+                                    className={styles["task-info"]}
+                                >dasdasd</div>
+                                <div
+                                    className={styles["task-priority"]}
+                                >urgent</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
-    )
-}
+    );
+};
