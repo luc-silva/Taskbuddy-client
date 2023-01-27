@@ -9,13 +9,13 @@ function App() {
     return (
         <div className="App">
             <AppHeader />
-            <Router>
-                {/* <SideNavbar /> */}
-                <Routes>
-                    <Route path="/" element={<ProjectPage />} />
-                </Routes>
-            </Router>
-        </div>
+                <Router>
+                    <SideNavbar />
+                    {/* <Routes>
+                        <Route path="/" element={<ProjectPage />} />
+                    </Routes> */}
+                </Router>
+            </div>
     );
 }
 

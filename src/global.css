@@ -7,21 +7,23 @@
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(50, 50, 50);
 }
-a{
-    font-size: 1.3rem;
-    font-weight: bold;
+:root{
+    --main-color: rgb(100, 175, 225);
+    --gray: whitesmoke;
+
 }
+
+.teste{
+    display: flex;
+    flex-direction: row;
+}
+
 body{
     position: absolute;
     z-index: 0;
 }
 input:focus, textarea:focus{
     outline: none;
-}
-
-
-.dashboard-button{
-    cursor: pointer;
 }
 
 #error-popup{
