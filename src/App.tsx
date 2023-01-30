@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AppHeader } from "./components/AppHeader/AppHeader";
-import { SideNavbar } from "./components/SideNavbar/SideNavbar";
 
-import { ProjectPage } from "./components/ProjectsPage/ProjectPage";
-import { TodosPage } from "./components/Todos/TodosPage";
+import { SideNavbar } from "./components/SideNavbar/SideNavbar";
+import { ProjectPage } from "./pages/ProjectsPage/ProjectsPage";
+import { TodosPage } from "./pages/TodosPage/TodosPage";
 
 import "./global.css";
 
