@@ -1,0 +1,24 @@
+.app-input{
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    box-sizing: border-box;
+    border: 2px solid var(--main-color);
+    outline: none;
+
+    display: grid;
+    place-content: center;
+}
+.app-input:checked{
+    background-color: var(--main-color);
+}
+.app-input::before{
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    transform: scale(0);
+}
+.app-input:checked::before{
+    transform: scale(1);
+}
