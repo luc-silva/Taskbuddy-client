@@ -17,19 +17,22 @@ export const SideNavbar = () => {
     }, [navActive, navWidth]);
 
     return (
-        <nav style={{ width: navWidth }} className={styles["side-navbar"]}>
+        <nav
+            style={{ width: navWidth }}
+            className={ navActive ? styles["side-navbar"] : styles["closed-side-navbar"]}
+        >
             {(navActive && (
                 <CaretDoubleLeft
-                    className={styles["navbar-btn"]}
-                    size={20}
+                    className={styles["navbar-btn-icon"]}
+                    size={24}
                     onClick={() => {
                         toggleNav(!navActive);
                     }}
                 />
             )) || (
                 <List
-                    className={styles["navbar-btn"]}
-                    size={20}
+                    className={styles["navbar-btn-icon"]}
+                    size={24}
                     onClick={() => {
                         toggleNav(!navActive);
                     }}
@@ -38,41 +41,44 @@ export const SideNavbar = () => {
 
             <ul>
                 <li>
-                    <NavLink to="/dashboard">
+                    <NavLink
+                        className={({ isActive }) =>
+                            isActive ? styles["navbar-btn-active"] : undefined
+                        }
+                        to="/dashboard"
+                    >
                         <Gauge
                             className={styles["navbar-btn-icon"]}
-                            size={20}
+                            size={24}
                         />
-                        {navActive && (
-                            <span className={styles["dashboard-btn"]}>
-                                Dashboard
-                            </span>
-                        )}
+                        {navActive && <span>Dashboard</span>}
                     </NavLink>
                 </li>
 
                 <li>
-                    <NavLink to="/projects">
-                        <Flag className={styles["navbar-btn-icon"]} size={20} />
-                        {navActive && (
-                            <span className={styles["projects-btn"]}>
-                                Projects
-                            </span>
-                        )}
+                    <NavLink
+                        className={({ isActive }) =>
+                            isActive ? styles["navbar-btn-active"] : undefined
+                        }
+                        to="/projects"
+                    >
+                        <Flag className={styles["navbar-btn-icon"]} size={24} />
+                        {navActive && <span>Projects</span>}
                     </NavLink>
                 </li>
 
                 <li>
-                    <NavLink to="/tasks">
+                    <NavLink
+                        className={({ isActive }) =>
+                            isActive ? styles["navbar-btn-active"] : undefined
+                        }
+                        to="/tasks"
+                    >
                         <ListChecks
                             className={styles["navbar-btn-icon"]}
-                            size={20}
+                            size={24}
                         />
-                        {navActive && (
-                            <span className={styles["tasks-btn-icon"]}>
-                                To-do
-                            </span>
-                        )}
+                        {navActive && <span>To-do</span>}
                     </NavLink>
                 </li>
 
