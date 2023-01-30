@@ -1,11 +1,12 @@
 import { NotePencil, Trash } from "phosphor-react";
+import { AppInput } from "../../components/Inputs/AppInput";
 import styles from "./TodoCard.module.css";
 
 export const TodoCard = () => {
     return (
         <div className={styles["todo-card"]}>
             <div className={styles["card-task"]}>
-                <input type="checkbox" className={styles["card-checkbox"]} />
+                <input type="checkbox"/>
                 <div className={styles["card-title"]}>
                     Task:
                     <strong>Kill someone</strong>
