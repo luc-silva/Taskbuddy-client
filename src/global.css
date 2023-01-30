@@ -10,22 +10,18 @@
 :root{
     --main-color: rgb(100, 175, 225);
     --gray: whitesmoke;
-
 }
 
-.teste{
+.App{
     display: flex;
     flex-direction: row;
+    height: 90vh;
+    width: 100vw;
 }
-
-body{
-    position: absolute;
-    z-index: 0;
-}
-input:focus, textarea:focus{
+button{
+    background-color: transparent;
     outline: none;
 }
-
 #error-popup{
     display: none;
     flex-direction: column;

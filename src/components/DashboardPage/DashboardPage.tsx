@@ -2,7 +2,7 @@ import styles from "./DashboardPage.module.css"
 
 export const DashboardPage = () => {
     return (
-        <div className={styles["dashboard-display"]}>
+        <div className={styles["dashboard-page"]}>
             <div className={styles["dashboard-greetings"]}>
                 <h2>Hello there, user</h2>
                 <p>Currently, you have...</p>

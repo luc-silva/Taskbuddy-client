@@ -1,21 +1,23 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppHeader } from "./components/AppHeader/AppHeader";
-import { ProjectPage } from "./components/ProjectsPage/ProjectPage";
 import { SideNavbar } from "./components/SideNavbar/SideNavbar";
+
+import { ProjectPage } from "./components/ProjectsPage/ProjectPage";
+import { TodosPage } from "./components/Todos/TodosPage";
 
 import "./global.css";
 
 function App() {
     return (
         <div className="App">
-            <AppHeader />
-                <Router>
-                    <SideNavbar />
-                    {/* <Routes>
-                        <Route path="/" element={<ProjectPage />} />
-                    </Routes> */}
-                </Router>
-            </div>
+            <Router >
+                <SideNavbar />
+                <Routes>
+                    <Route path={"/dashboard"} element={<TodosPage />} />
+                    {/* <Route path="/" element={<ProjectPage />} /> */}
+                </Routes>
+            </Router>
+        </div>
     );
 }
 
