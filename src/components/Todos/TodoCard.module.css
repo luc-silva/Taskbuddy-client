@@ -1,0 +1,41 @@
+.todo-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    width: 90%;
+    border-radius: 5px;
+    padding: 16px;
+    background-color: whitesmoke;
+    /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 15%); */
+}
+.card-task{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+/* .card-checkbox {
+
+}*/
+.card-title{
+    display: flex;
+    flex-direction: column;
+}
+.card-details{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+.card-deadline{
+    display: flex;
+    gap: 1rem;
+}
+.delete-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+
+}
