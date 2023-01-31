@@ -6,11 +6,39 @@ import styles from "./TodosPage.module.css";
 
 export const TodosPage = ({
     toggleTaskCreator,
-    isTaskCreatorActive
+    isTaskCreatorActive,
 }: {
     toggleTaskCreator: Function;
-    isTaskCreatorActive: boolean
+    isTaskCreatorActive: boolean;
 }) => {
+    interface Task {
+        taskConcluded: boolean;
+        taskTitle: string;
+        taskDeadline: Date;
+    }
+
+    let tasks: Task[] = [
+        {
+            taskConcluded: false,
+            taskTitle: "No idea for now",
+            taskDeadline: new Date(),
+        },
+        {
+            taskConcluded: true,
+            taskTitle: "No idea, ok?",
+            taskDeadline: new Date(),
+        },
+        {
+            taskConcluded: true,
+            taskTitle: "Ye, indeed",
+            taskDeadline: new Date(),
+        },
+        {
+            taskConcluded: false,
+            taskTitle: "Bruh idk",
+            taskDeadline: new Date(),
+        },
+    ];
     return (
         <div className={styles["todos-page"]}>
             <div className={styles["tasks-button-panel"]}>
@@ -21,9 +49,19 @@ export const TodosPage = ({
                 />
             </div>
             <div className={styles["tasks-container"]}>
-                {/* task.map(task => {
-                    return TodoCard
-                }) */}
+                {tasks.map(
+                    (
+                        { taskConcluded, taskTitle, taskDeadline }: Task,
+                        index: number
+                    ) => (
+                        <TodoCard
+                            taskConcluded={taskConcluded}
+                            taskTitle={taskTitle}
+                            taskDeadline={taskDeadline}
+                            key={index}
+                        />
+                    )
+                )}
             </div>
         </div>
     );

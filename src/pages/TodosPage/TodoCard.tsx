@@ -1,22 +1,28 @@
 import { NotePencil, Trash } from "phosphor-react";
-import { AppInput } from "../../components/Inputs/AppInput";
+import { format } from "date-fns";
 import styles from "./TodoCard.module.css";
 
-export const TodoCard = () => {
+interface Task {
+    taskConcluded: boolean;
+    taskTitle: string;
+    taskDeadline: Date;
+}
+
+export const TodoCard = ({ taskConcluded, taskTitle, taskDeadline }: Task) => {
     return (
         <div className={styles["todo-card"]}>
             <div className={styles["card-task"]}>
-                <input type="checkbox"/>
+                <input type="checkbox" checked={taskConcluded}/>
                 <div className={styles["card-title"]}>
                     Task:
-                    <strong>Kill someone</strong>
+                    <strong>{taskTitle}</strong>
                 </div>
             </div>
 
             <div className={styles["card-details"]}>
                 <div className={styles["card-deadline"]}>
                     <strong>Deadline:</strong>
-                    1233213123
+                    <span>{format(taskDeadline, "MM/dd/yyyy")}</span>
                 </div>
                 <button className={styles["delete-btn"]}>
                     <Trash size={30} color="red" weight="regular" />
