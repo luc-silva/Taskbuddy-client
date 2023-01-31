@@ -6,6 +6,7 @@
 .button-panel > button {
     padding: 0.5rem 1.5rem;
     border-radius: 5px;
+    cursor: pointer;
 }
 .add-btn{
     background-color: var(--main-color);
