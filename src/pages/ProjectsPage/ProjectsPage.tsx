@@ -1,38 +1,47 @@
-import styles from "./ProjectPage.module.css";
+import { AppAddButton } from "../../components/Buttons/AppAddButton";
+import { ProjectCard } from "./ProjectCard";
+import { ProjectModel } from "./ProjectPageModels";
+
+import styles from "./ProjectsPage.module.css";
 
 export const ProjectPage = () => {
+    let projects: ProjectModel[] = [
+        {
+            projectTitle: "Trip to london",
+            projectDeadline: "31312",
+            projectDescription:
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat voluptatum labore, temporibus eius quia rem odio voluptatem mollitia corporis eaque esse ratione delectus repellendus atque cum odit impedit tenetur inventore!",
+            projectStatus: "Unfinished",
+            projectTasks: [{ taskPriority: "urgent", taskTitle: "sleep" }],
+        },
+    ];
     return (
         <div className={styles["project-page"]}>
-            {/* <div className={styles["button-panel"]}>
-                <button className={styles["add-project-btn"]}>
-                    Add Project
-                </button>
-            </div>
+            {/* <AppAddButton /> */}
             <div className={styles["projects-container"]}>
-                <div className={styles["project-card"]}>
-                    <div>
-                        <div className={styles["project-name"]}>dsaasd</div>
-                        <div className={styles["project-info"]}>dasdasd</div>
-                    </div>
-                    <div className={styles["project-details"]}>
-                        <strong>Details:</strong>
-                        asdas
-                    </div>
-                    <div className={styles["project-tasks"]}>
-                        <strong>Tasks:</strong>
-                        <div className={styles["project-tasks-container"]}>
-                            <div className={styles["task-card"]}>
-                                <div
-                                    className={styles["task-info"]}
-                                >dasdasd</div>
-                                <div
-                                    className={styles["task-priority"]}
-                                >urgent</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
+                {projects.map(
+                    (
+                        {
+                            projectTitle,
+                            projectDeadline,
+                            projectStatus,
+                            projectDescription,
+                            projectTasks,
+                        },
+                        index
+                    ) => {
+                        return (
+                            <ProjectCard
+                                projectTitle={projectTitle}
+                                projectDeadline={projectDeadline}
+                                projectStatus={projectStatus}
+                                projectDescription={projectDescription}
+                                projectTasks={projectTasks}
+                            />
+                        );
+                    }
+                )}
+            </div>
         </div>
     );
 };

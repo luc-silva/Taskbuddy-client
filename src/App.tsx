@@ -13,12 +13,15 @@ function App() {
 
     return (
         <div className="App">
-            <TaskCreatorModal isActive={isTaskCreatorActive} toggleModal={toggleTaskCreator} />
+            <TaskCreatorModal
+                isActive={isTaskCreatorActive}
+                toggleModal={toggleTaskCreator}
+            />
             <Router>
                 <SideNavbar />
                 <Routes>
                     <Route
-                        path={"/dashboard"}
+                        path={"/tasks"}
                         element={
                             <TodosPage
                                 toggleTaskCreator={toggleTaskCreator}
@@ -26,7 +29,7 @@ function App() {
                             />
                         }
                     />
-                    {/* <Route path="/" element={<ProjectPage />} /> */}
+                    <Route path="/projects" element={<ProjectPage />} />
                 </Routes>
             </Router>
         </div>

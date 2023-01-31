@@ -1,0 +1,50 @@
+.project-card {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 15%);
+    background-color: whitesmoke;
+}
+.card-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+.card-maininfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+.maininfo-counter {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+.maininfo-extra {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+.maininfo-extra > span {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+.card-description,
+.card-tasks,
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+}
+.card-tasks > strong {
+    font-size: 1.3rem;
+}
+.tasks-container{
+    align-items: center;
+}

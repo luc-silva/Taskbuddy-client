@@ -1,0 +1,31 @@
+.task-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 95%;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+.task-card-main{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+.task-card-main > span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.task-card-main > span > strong{
+    color: var(--main-color);
+    font-size: 1.3rem;
+}
+.task-card-priority{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
