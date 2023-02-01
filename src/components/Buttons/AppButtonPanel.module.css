@@ -1,7 +1,11 @@
 .button-panel{
     display: flex;
     flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     gap: 1rem;
+    padding: 2rem;
 }
 .button-panel > button {
     padding: 0.5rem 1.5rem;

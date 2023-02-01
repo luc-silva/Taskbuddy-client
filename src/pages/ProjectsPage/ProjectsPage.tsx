@@ -1,10 +1,17 @@
+import { useState } from "react";
 import { AppAddButton } from "../../components/Buttons/AppAddButton";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectModel } from "./ProjectPageModels";
 
 import styles from "./ProjectsPage.module.css";
 
-export const ProjectPage = () => {
+export const ProjectPage = ({
+    isActive,
+    toggleProjectCreator,
+}: {
+    isActive: boolean;
+    toggleProjectCreator: Function;
+}) => {
     let projects: ProjectModel[] = [
         {
             projectTitle: "Trip to london",
@@ -15,9 +22,14 @@ export const ProjectPage = () => {
             projectTasks: [{ taskPriority: "urgent", taskTitle: "sleep" }],
         },
     ];
+
     return (
         <div className={styles["project-page"]}>
-            {/* <AppAddButton /> */}
+            <AppAddButton
+                text="Add Project"
+                isModalActive={isActive}
+                toggleModal={toggleProjectCreator}
+            />
             <div className={styles["projects-container"]}>
                 {projects.map(
                     (

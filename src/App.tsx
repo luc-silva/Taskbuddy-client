@@ -7,12 +7,18 @@ import { TodosPage } from "./pages/TodosPage/TodosPage";
 
 import "./global.css";
 import { TaskCreatorModal } from "./pages/TodosPage/TaskCreatorModal";
+import { ProjectCreatorModal } from "./pages/ProjectsPage/ProjectCreatorModal";
 
 function App() {
     let [isTaskCreatorActive, toggleTaskCreator] = useState(false);
+    let [isProjectCreatorActive, toggleProjectCreator] = useState(false);
 
     return (
         <div className="App">
+            <ProjectCreatorModal
+                isActive={isProjectCreatorActive}
+                toggleModal={toggleProjectCreator}
+            />
             <TaskCreatorModal
                 isActive={isTaskCreatorActive}
                 toggleModal={toggleTaskCreator}
@@ -29,7 +35,15 @@ function App() {
                             />
                         }
                     />
-                    <Route path="/projects" element={<ProjectPage />} />
+                    <Route
+                        path="/projects"
+                        element={
+                            <ProjectPage
+                                isActive={isProjectCreatorActive}
+                                toggleProjectCreator={toggleProjectCreator}
+                            />
+                        }
+                    />
                 </Routes>
             </Router>
         </div>
