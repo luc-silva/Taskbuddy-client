@@ -79,6 +79,16 @@ export const ProjectCreatorModal = ({
                                 <Trash size={24}  />
                             </div>
                         </div>
+                        <div className={styles["task-card"]} >
+                            <div className={styles["card-maininfo"]}>
+                                <strong>Drink Water</strong>
+                                <span>Low Priority</span>
+                            </div>
+                            <div className={styles["card-icons"]} >
+                                <Trash size={24}  />
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <AppButtonPanel 

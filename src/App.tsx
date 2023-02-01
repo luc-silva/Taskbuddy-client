@@ -8,6 +8,7 @@ import { TodosPage } from "./pages/TodosPage/TodosPage";
 import "./global.css";
 import { TaskCreatorModal } from "./pages/TodosPage/TaskCreatorModal";
 import { ProjectCreatorModal } from "./pages/ProjectsPage/ProjectCreatorModal";
+import { AppHeader } from "./components/AppHeader/AppHeader";
 
 function App() {
     let [isTaskCreatorActive, toggleTaskCreator] = useState(false);
@@ -23,29 +24,32 @@ function App() {
                 isActive={isTaskCreatorActive}
                 toggleModal={toggleTaskCreator}
             />
-            <Router>
-                <SideNavbar />
-                <Routes>
-                    <Route
-                        path={"/tasks"}
-                        element={
-                            <TodosPage
-                                toggleTaskCreator={toggleTaskCreator}
-                                isTaskCreatorActive={isTaskCreatorActive}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/projects"
-                        element={
-                            <ProjectPage
-                                isActive={isProjectCreatorActive}
-                                toggleProjectCreator={toggleProjectCreator}
-                            />
-                        }
-                    />
-                </Routes>
-            </Router>
+            <AppHeader />
+            <main className="app-structure" >
+                <Router >
+                    <SideNavbar />
+                    <Routes>
+                        <Route
+                            path={"/tasks"}
+                            element={
+                                <TodosPage
+                                    toggleTaskCreator={toggleTaskCreator}
+                                    isTaskCreatorActive={isTaskCreatorActive}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/projects"
+                            element={
+                                <ProjectPage
+                                    isActive={isProjectCreatorActive}
+                                    toggleProjectCreator={toggleProjectCreator}
+                                />
+                            }
+                        />
+                    </Routes>
+                </Router>
+            </main>
         </div>
     );
 }

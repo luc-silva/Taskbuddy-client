@@ -3,6 +3,8 @@
     padding-right: 6rem;
     height: 10vh;
     width: 100vw;
+    position: relative;
+    z-index: 0;
     
     display: flex;
     flex-direction: row;
