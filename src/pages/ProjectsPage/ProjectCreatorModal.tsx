@@ -4,9 +4,13 @@ import { AppCloseButton } from "../../components/Buttons/AppCloseButton";
 import styles from "./ProjectCreatorModal.module.css";
 
 export const ProjectCreatorModal = ({
+    user,
+    modifyUser,
     isActive,
     toggleModal,
 }: {
+    user: any;
+    modifyUser: Function;
     isActive: boolean;
     toggleModal: Function;
 }) => {
@@ -27,15 +31,15 @@ export const ProjectCreatorModal = ({
                 <AppCloseButton isActive={isActive} toggleModal={toggleModal} />
                 <h3>Create a new project</h3>
                 <div className={styles["project-creator-main"]}>
-                    <div >
+                    <div>
                         Project Title
                         <input type="text" />
                     </div>
-                    <div >
+                    <div>
                         Deadline
                         <input type="date" />
                     </div>
-                    <div >
+                    <div>
                         Description
                         <textarea />
                     </div>
@@ -52,48 +56,48 @@ export const ProjectCreatorModal = ({
                         </select>
                     </div>
                     <div className={styles["creator-tasks-preview"]}>
-                        <div className={styles["task-card"]} >
+                        <div className={styles["task-card"]}>
                             <div className={styles["card-maininfo"]}>
                                 <strong>Drink Water</strong>
                                 <span>Low Priority</span>
                             </div>
-                            <div className={styles["card-icons"]} >
-                                <Trash size={24}  />
+                            <div className={styles["card-icons"]}>
+                                <Trash size={24} />
                             </div>
                         </div>
-                        <div className={styles["task-card"]} >
+                        <div className={styles["task-card"]}>
                             <div className={styles["card-maininfo"]}>
                                 <strong>Drink Water</strong>
                                 <span>Low Priority</span>
                             </div>
-                            <div className={styles["card-icons"]} >
-                                <Trash size={24}  />
+                            <div className={styles["card-icons"]}>
+                                <Trash size={24} />
                             </div>
                         </div>
-                        <div className={styles["task-card"]} >
+                        <div className={styles["task-card"]}>
                             <div className={styles["card-maininfo"]}>
                                 <strong>Drink Water</strong>
                                 <span>Low Priority</span>
                             </div>
-                            <div className={styles["card-icons"]} >
-                                <Trash size={24}  />
+                            <div className={styles["card-icons"]}>
+                                <Trash size={24} />
                             </div>
                         </div>
-                        <div className={styles["task-card"]} >
+                        <div className={styles["task-card"]}>
                             <div className={styles["card-maininfo"]}>
                                 <strong>Drink Water</strong>
                                 <span>Low Priority</span>
                             </div>
-                            <div className={styles["card-icons"]} >
-                                <Trash size={24}  />
+                            <div className={styles["card-icons"]}>
+                                <Trash size={24} />
                             </div>
                         </div>
-                        
                     </div>
                 </div>
-                <AppButtonPanel 
-                     isActive={isActive}
-                     toggleModal={toggleModal}
+                <AppButtonPanel
+                    handleFunc={modifyUser}
+                    isActive={isActive}
+                    toggleModal={toggleModal}
                 />
             </div>
         </div>

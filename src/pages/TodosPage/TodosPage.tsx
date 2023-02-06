@@ -1,44 +1,23 @@
-import { useState } from "react";
 import { AppAddButton } from "../../components/Buttons/AppAddButton";
-import { TaskCreatorModal } from "./TaskCreatorModal";
+import { TaskModel } from "./TaskModel";
 import { TodoCard } from "./TodoCard";
+import { User } from "../../userData";
+
 import styles from "./TodosPage.module.css";
 
 export const TodosPage = ({
+    user,
+    modifyUser,
     toggleTaskCreator,
     isTaskCreatorActive,
+    tasks,
 }: {
+    user: User;
+    modifyUser: Function;
     toggleTaskCreator: Function;
     isTaskCreatorActive: boolean;
+    tasks: TaskModel[];
 }) => {
-    interface Task {
-        taskConcluded: boolean;
-        taskTitle: string;
-        taskDeadline: Date;
-    }
-
-    let tasks: Task[] = [
-        {
-            taskConcluded: false,
-            taskTitle: "No idea for now",
-            taskDeadline: new Date(),
-        },
-        {
-            taskConcluded: true,
-            taskTitle: "No idea, ok?",
-            taskDeadline: new Date(),
-        },
-        {
-            taskConcluded: true,
-            taskTitle: "Ye, indeed",
-            taskDeadline: new Date(),
-        },
-        {
-            taskConcluded: false,
-            taskTitle: "Bruh idk",
-            taskDeadline: new Date(),
-        },
-    ];
     return (
         <div className={styles["todos-page"]}>
             <div className={styles["tasks-button-panel"]}>
@@ -51,13 +30,16 @@ export const TodosPage = ({
             <div className={styles["tasks-container"]}>
                 {tasks.map(
                     (
-                        { taskConcluded, taskTitle, taskDeadline }: Task,
+                        { taskConcluded, taskTitle, taskDeadline }: TaskModel,
                         index: number
                     ) => (
                         <TodoCard
+                            user={user}
+                            modifyUser={modifyUser}
                             taskConcluded={taskConcluded}
                             taskTitle={taskTitle}
                             taskDeadline={taskDeadline}
+                            index={index}
                             key={index}
                         />
                     )

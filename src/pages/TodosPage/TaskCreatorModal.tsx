@@ -1,30 +1,42 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { AppButtonPanel } from "../../components/Buttons/AppButtonPanel";
 import { AppCloseButton } from "../../components/Buttons/AppCloseButton";
 import styles from "./TaskCreatorModal.module.css";
+import { TaskModel } from "./TaskModel";
 
 export const TaskCreatorModal = ({
+    user,
+    modifyUser,
     toggleModal,
     isActive,
 }: {
+    user: any;
+    modifyUser: Function;
     toggleModal: Function;
     isActive: boolean;
 }) => {
     let [taskTitle, setTaskTitle] = useState("");
-    let [test, setTest] = useState("");
-    let [deadline, setDeadline] = useState("");
-    let [priority, setPriority] = useState("");
+    let [taskDeadline, setTaskDeadline] = useState("2023-02-09");
 
-    let [tasks, setTasks] = useState([]);
-
-    function titleInputHandle(event: ChangeEvent<HTMLInputElement>) {
-        setTest(event.target.value);
+    function handleTaskCreator() {
+        if(taskTitle){
+            modifyUser({
+                ...user,
+                todoList: [
+                    ...user.todoList,
+                    createTask()
+                ],
+            });
+        }
+        toggleModal(!isActive)
+        
     }
-    function deadlineInputHandle(event: ChangeEvent<HTMLInputElement>) {
-        setDeadline(event.target.value);
-    }
-    function prioritySelectHandle(event: ChangeEvent<HTMLSelectElement>) {
-        setPriority(event.target.value);
+    function createTask(){
+        return {
+            taskTitle,
+            taskDeadline: new Date(taskDeadline),
+            taskConcluded: false,
+        }
     }
 
     if (!isActive) {
@@ -53,29 +65,27 @@ export const TaskCreatorModal = ({
                             Task
                             <input
                                 type="text"
-                                value={test}
+                                value={taskTitle}
                                 onChange={(event) => {
-                                    titleInputHandle(event);
+                                    setTaskTitle(event.target.value);
                                 }}
                             />
                         </div>
+
                         <div className={styles["input-div"]}>
                             Deadline
                             <input
                                 type="date"
-                                value={deadline}
+                                value={taskDeadline}
                                 onChange={(event) => {
-                                    deadlineInputHandle(event);
+                                    setTaskDeadline(event.target.value);
                                 }}
                             />
                         </div>
+
                         <div className={styles["input-div"]}>
                             Priority
-                            <select
-                                onChange={(event) => {
-                                    prioritySelectHandle(event);
-                                }}
-                            >
+                            <select>
                                 <option>Low Priority</option>
                                 <option>Medium Priority</option>
                                 <option>High Priority</option>
@@ -86,6 +96,7 @@ export const TaskCreatorModal = ({
                     </div>
 
                     <AppButtonPanel
+                        handleFunc={handleTaskCreator}
                         toggleModal={toggleModal}
                         isActive={isActive}
                     />

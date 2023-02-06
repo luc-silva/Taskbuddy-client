@@ -8,20 +8,12 @@ import styles from "./ProjectsPage.module.css";
 export const ProjectPage = ({
     isActive,
     toggleProjectCreator,
+    projects
 }: {
     isActive: boolean;
     toggleProjectCreator: Function;
+    projects:ProjectModel[]
 }) => {
-    let projects: ProjectModel[] = [
-        {
-            projectTitle: "Trip to london",
-            projectDeadline: "31312",
-            projectDescription:
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat voluptatum labore, temporibus eius quia rem odio voluptatem mollitia corporis eaque esse ratione delectus repellendus atque cum odit impedit tenetur inventore!",
-            projectStatus: "Unfinished",
-            projectTasks: [{ taskPriority: "urgent", taskTitle: "sleep" }],
-        },
-    ];
 
     return (
         <div className={styles["project-page"]}>

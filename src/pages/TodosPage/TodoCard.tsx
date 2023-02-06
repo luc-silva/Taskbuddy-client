@@ -1,18 +1,36 @@
-import { NotePencil, Trash } from "phosphor-react";
+import { Trash } from "phosphor-react";
 import { format } from "date-fns";
 import styles from "./TodoCard.module.css";
+import { TaskModel } from "./TaskModel";
 
-interface Task {
-    taskConcluded: boolean;
-    taskTitle: string;
-    taskDeadline: Date;
+interface TodoCardModel extends TaskModel {
+    index: number;
+    user: any;
+    modifyUser: Function;
 }
 
-export const TodoCard = ({ taskConcluded, taskTitle, taskDeadline }: Task) => {
+export const TodoCard = ({
+    index,
+    taskConcluded,
+    taskTitle,
+    taskDeadline,
+    user,
+    modifyUser,
+}: TodoCardModel) => {
+    function handleDelete() {
+        modifyUser({
+            ...user,
+            todoList: user.todoList.filter((task: TaskModel, id: number) => {
+                if (index !== id) {
+                    return task;
+                }
+            }),
+        });
+    }
     return (
         <div className={styles["todo-card"]}>
             <div className={styles["card-task"]}>
-                <input type="checkbox" checked={taskConcluded}/>
+                <input type="checkbox" checked={taskConcluded} />
                 <div className={styles["card-title"]}>
                     Task:
                     <strong>{taskTitle}</strong>
@@ -24,9 +42,13 @@ export const TodoCard = ({ taskConcluded, taskTitle, taskDeadline }: Task) => {
                     <strong>Deadline:</strong>
                     <span>{format(taskDeadline, "MM/dd/yyyy")}</span>
                 </div>
-                <button className={styles["delete-btn"]}>
+                <button
+                    className={styles["delete-btn"]}
+                    onClick={() => {
+                        handleDelete();
+                    }}
+                >
                     <Trash size={30} color="red" weight="regular" />
-                    <NotePencil size={30} color="royalblue" weight="regular" />
                 </button>
             </div>
         </div>
