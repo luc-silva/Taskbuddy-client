@@ -8,11 +8,15 @@ import styles from "./ProjectCreatorModal.module.css";
 import { ProjectCreatorTasks } from "./ProjectCreatorTasks";
 
 export const ProjectCreatorModal = ({
+    isToastActive,
+    toggleToast,
     user,
     modifyUser,
     isActive,
     toggleModal,
 }: {
+    isToastActive: boolean;
+    toggleToast: Function;
     user: User;
     modifyUser: Function;
     isActive: boolean;
@@ -24,10 +28,15 @@ export const ProjectCreatorModal = ({
     let [projectTasks, setProjectTasks] = useState<Array<ProjectTaskModel>>([]);
 
     function handleProjectInclusion() {
-        modifyUser({
-            ...user,
-            projectList: [...user.projectList, createNewProject()],
-        });
+        if(projectTitle && projectTasks.length > 0){
+            modifyUser({
+                ...user,
+                projectList: [...user.projectList, createNewProject()],
+            });
+            toggleModal(!isActive)
+        } else {
+            !isToastActive && toggleToast(!isToastActive)
+        }
     }
     function createNewProject(): ProjectModel {
         return {
@@ -90,6 +99,8 @@ export const ProjectCreatorModal = ({
                     </div>
                 </div>
                 <ProjectCreatorTasks
+                    isToastActive={isToastActive}
+                    toggleToast={toggleToast}
                     projectTasks={projectTasks}
                     setProjectTasks={setProjectTasks}
                 />

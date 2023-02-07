@@ -1,0 +1,28 @@
+.error-toast{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    align-items: center;
+    z-index: 2;
+    gap: 1rem;
+    bottom: 0;
+    left: 0;
+    margin: 1rem;
+    width: 25vw;
+
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: rgb(225, 112, 112);
+    
+}
+.error-message{
+    line-height: 1rem;
+}
+.error-message strong{
+    font-size: 1.1rem;
+    color: white;
+}
+.error-message p {
+    font-size: 0.8rem;
+    color: white;
+}

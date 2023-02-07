@@ -4,9 +4,13 @@ import styles from "./ProjectCreatorTasks.module.css";
 import { ProjectTaskModel } from "./ProjectPageModels";
 
 export const ProjectCreatorTasks = ({
+    isToastActive,
+    toggleToast,
     projectTasks,
     setProjectTasks,
 }: {
+    isToastActive: boolean;
+    toggleToast: Function;
     projectTasks: ProjectTaskModel[];
     setProjectTasks: Function;
 }) => {
@@ -14,7 +18,11 @@ export const ProjectCreatorTasks = ({
     let [taskPriority, setTaskPriority] = useState("Low");
 
     function handleTaskInclusion() {
-        setProjectTasks([...projectTasks, createNewProjectTask()]);
+        if (taskTitle) {
+            setProjectTasks([...projectTasks, createNewProjectTask()]);
+        } else {
+            !isToastActive && toggleToast(!isToastActive);
+        }
     }
 
     function createNewProjectTask(): ProjectTaskModel {

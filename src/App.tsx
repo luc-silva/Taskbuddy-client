@@ -14,26 +14,37 @@ import { AppHeader } from "./components/AppHeader/AppHeader";
 import { userData } from "./userData";
 import "./global.css";
 import { DashboardPage } from "./pages/DashboardPage/DashboardPage";
+import { ErrorToast } from "./components/ErrorToast/ErrorToast";
 
 function App() {
     let [loggedUser, setLoggedUser] = useState(userData);
 
     let [isTaskCreatorActive, toggleTaskCreator] = useState(false);
     let [isProjectCreatorActive, toggleProjectCreator] = useState(false);
+    let [isErrorToastActive, toggleErrorToast] = useState(false);
 
     return (
         <div className="App">
             <ProjectCreatorModal
+                isToastActive={isErrorToastActive}
+                toggleToast={toggleErrorToast}
                 user={loggedUser}
                 modifyUser={setLoggedUser}
                 isActive={isProjectCreatorActive}
                 toggleModal={toggleProjectCreator}
             />
             <TaskCreatorModal
+                isToastActive={isErrorToastActive}
+                toggleToast={toggleErrorToast}
                 user={loggedUser}
                 modifyUser={setLoggedUser}
                 isActive={isTaskCreatorActive}
                 toggleModal={toggleTaskCreator}
+            />
+            <ErrorToast
+                message="Invalid input values"
+                isActive={isErrorToastActive}
+                toggleToast={toggleErrorToast}
             />
             <AppHeader />
             <main className="app-structure">

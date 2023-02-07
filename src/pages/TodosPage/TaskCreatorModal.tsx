@@ -5,11 +5,15 @@ import styles from "./TaskCreatorModal.module.css";
 import { TaskModel } from "./TaskModel";
 
 export const TaskCreatorModal = ({
+    isToastActive,
+    toggleToast,
     user,
     modifyUser,
     toggleModal,
     isActive,
 }: {
+    isToastActive: boolean;
+    toggleToast: Function;
     user: any;
     modifyUser: Function;
     toggleModal: Function;
@@ -24,8 +28,10 @@ export const TaskCreatorModal = ({
                 ...user,
                 todoList: [...user.todoList, createTask()],
             });
+            toggleModal(!isActive);
+        } else {
+            !isToastActive && toggleToast(!isToastActive)
         }
-        toggleModal(!isActive);
     }
     function createTask() {
         return {
