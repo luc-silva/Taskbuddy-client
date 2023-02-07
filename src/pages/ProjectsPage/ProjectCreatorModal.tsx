@@ -1,7 +1,11 @@
-import { Trash } from "phosphor-react";
+import { ChangeEvent, useState } from "react";
 import { AppButtonPanel } from "../../components/Buttons/AppButtonPanel";
 import { AppCloseButton } from "../../components/Buttons/AppCloseButton";
+import { ProjectModel, ProjectTaskModel } from "./ProjectPageModels";
+import { User } from "../../userData";
+
 import styles from "./ProjectCreatorModal.module.css";
+import { ProjectCreatorTasks } from "./ProjectCreatorTasks";
 
 export const ProjectCreatorModal = ({
     user,
@@ -9,11 +13,31 @@ export const ProjectCreatorModal = ({
     isActive,
     toggleModal,
 }: {
-    user: any;
+    user: User;
     modifyUser: Function;
     isActive: boolean;
     toggleModal: Function;
 }) => {
+    let [projectTitle, setProjectTitle] = useState("");
+    let [projectDescription, setProjectDescription] = useState("");
+    let [projectDeadline, setProjectDeadline] = useState("2023-02-09");
+    let [projectTasks, setProjectTasks] = useState<Array<ProjectTaskModel>>([]);
+
+    function handleProjectInclusion() {
+        modifyUser({
+            ...user,
+            projectList: [...user.projectList, createNewProject()],
+        });
+    }
+    function createNewProject(): ProjectModel {
+        return {
+            projectTitle,
+            projectDeadline: new Date(projectDeadline),
+            projectStatus: "Unfinished",
+            projectDescription,
+            projectTasks,
+        };
+    }
     if (!isActive) return null;
     return (
         <div
@@ -33,69 +57,44 @@ export const ProjectCreatorModal = ({
                 <div className={styles["project-creator-main"]}>
                     <div>
                         Project Title
-                        <input type="text" />
+                        <input
+                            type="text"
+                            value={projectTitle}
+                            onChange={(
+                                event: ChangeEvent<HTMLInputElement>
+                            ) => {
+                                setProjectTitle(event.target.value);
+                            }}
+                        />
                     </div>
                     <div>
                         Deadline
-                        <input type="date" />
+                        <input
+                            type="date"
+                            value={projectDeadline}
+                            onChange={(event: ChangeEvent<HTMLDataElement>) => {
+                                setProjectDeadline(event.target.value);
+                            }}
+                        />
                     </div>
                     <div>
                         Description
-                        <textarea />
+                        <textarea
+                            value={projectDescription}
+                            onChange={(
+                                event: ChangeEvent<HTMLTextAreaElement>
+                            ) => {
+                                setProjectDescription(event.target.value);
+                            }}
+                        />
                     </div>
                 </div>
-
-                <div className={styles["project-creator-tasks"]}>
-                    <h3>Add Tasks</h3>
-                    <div className={styles["creator-task-input"]}>
-                        <input type="text" placeholder="Task title" />
-                        <select>
-                            <option value="low">Low Priority</option>
-                            <option value="medium">Medium Priority</option>
-                            <option value="high">High Priority</option>
-                        </select>
-                    </div>
-                    <div className={styles["creator-tasks-preview"]}>
-                        <div className={styles["task-card"]}>
-                            <div className={styles["card-maininfo"]}>
-                                <strong>Drink Water</strong>
-                                <span>Low Priority</span>
-                            </div>
-                            <div className={styles["card-icons"]}>
-                                <Trash size={24} />
-                            </div>
-                        </div>
-                        <div className={styles["task-card"]}>
-                            <div className={styles["card-maininfo"]}>
-                                <strong>Drink Water</strong>
-                                <span>Low Priority</span>
-                            </div>
-                            <div className={styles["card-icons"]}>
-                                <Trash size={24} />
-                            </div>
-                        </div>
-                        <div className={styles["task-card"]}>
-                            <div className={styles["card-maininfo"]}>
-                                <strong>Drink Water</strong>
-                                <span>Low Priority</span>
-                            </div>
-                            <div className={styles["card-icons"]}>
-                                <Trash size={24} />
-                            </div>
-                        </div>
-                        <div className={styles["task-card"]}>
-                            <div className={styles["card-maininfo"]}>
-                                <strong>Drink Water</strong>
-                                <span>Low Priority</span>
-                            </div>
-                            <div className={styles["card-icons"]}>
-                                <Trash size={24} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ProjectCreatorTasks
+                    projectTasks={projectTasks}
+                    setProjectTasks={setProjectTasks}
+                />
                 <AppButtonPanel
-                    handleFunc={modifyUser}
+                    handleFunc={handleProjectInclusion}
                     isActive={isActive}
                     toggleModal={toggleModal}
                 />

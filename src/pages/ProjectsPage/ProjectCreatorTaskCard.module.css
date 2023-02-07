@@ -1,0 +1,10 @@
+.task-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 95%;
+}
+.card-maininfo{
+    display: flex;
+    gap: 1rem;
+}

@@ -11,8 +11,9 @@ import { TaskCreatorModal } from "./pages/TodosPage/TaskCreatorModal";
 import { ProjectCreatorModal } from "./pages/ProjectsPage/ProjectCreatorModal";
 import { AppHeader } from "./components/AppHeader/AppHeader";
 
-import {userData} from "./userData";
+import { userData } from "./userData";
 import "./global.css";
+import { DashboardPage } from "./pages/DashboardPage/DashboardPage";
 
 function App() {
     let [loggedUser, setLoggedUser] = useState(userData);
@@ -40,24 +41,30 @@ function App() {
                     <SideNavbar />
                     <Routes>
                         <Route
-                            path={"/tasks"}
-                            element={
-                                <TodosPage
-                                    tasks={loggedUser.todoList}
-                                    user={loggedUser}
-                                    modifyUser={setLoggedUser}
-                                    toggleTaskCreator={toggleTaskCreator}
-                                    isTaskCreatorActive={isTaskCreatorActive}
-                                />
-                            }
+                            path="/dashboard"
+                            element={<DashboardPage user={loggedUser} />}
                         />
                         <Route
                             path="/projects"
                             element={
                                 <ProjectPage
+                                    user={loggedUser}
+                                    modifyUser={setLoggedUser}
                                     projects={loggedUser.projectList}
                                     isActive={isProjectCreatorActive}
                                     toggleProjectCreator={toggleProjectCreator}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/tasks"
+                            element={
+                                <TodosPage
+                                    user={loggedUser}
+                                    modifyUser={setLoggedUser}
+                                    tasks={loggedUser.todoList}
+                                    toggleTaskCreator={toggleTaskCreator}
+                                    isTaskCreatorActive={isTaskCreatorActive}
                                 />
                             }
                         />

@@ -2,6 +2,7 @@ import { ProjectModel } from "./ProjectPageModels";
 import { ProjectTask } from "./ProjectTask";
 
 import styles from "./ProjectCard.module.css";
+import { format } from "date-fns";
 
 
 export const ProjectCard = ({
@@ -23,7 +24,7 @@ export const ProjectCard = ({
                     <span className={styles["maininfo-extra"]}>
                         <span>
                             Deadline:
-                            <strong>{projectDeadline}</strong>
+                            <strong>{format(projectDeadline, "MM/dd/yyyy")}</strong>
                         </span>
                         <span>
                             Status:

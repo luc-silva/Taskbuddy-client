@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { AppAddButton } from "../../components/Buttons/AppAddButton";
+import { User } from "../../userData";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectModel } from "./ProjectPageModels";
 
 import styles from "./ProjectsPage.module.css";
 
 export const ProjectPage = ({
+    user,
+    modifyUser,
     isActive,
     toggleProjectCreator,
-    projects
+    projects,
 }: {
+    user: User;
+    modifyUser: Function;
     isActive: boolean;
     toggleProjectCreator: Function;
-    projects:ProjectModel[]
+    projects: ProjectModel[];
 }) => {
-
     return (
         <div className={styles["project-page"]}>
             <AppAddButton
@@ -31,8 +35,8 @@ export const ProjectPage = ({
                             projectStatus,
                             projectDescription,
                             projectTasks,
-                        },
-                        index
+                        }: ProjectModel,
+                        index: number
                     ) => {
                         return (
                             <ProjectCard
@@ -41,6 +45,7 @@ export const ProjectPage = ({
                                 projectStatus={projectStatus}
                                 projectDescription={projectDescription}
                                 projectTasks={projectTasks}
+                                key={index}
                             />
                         );
                     }
