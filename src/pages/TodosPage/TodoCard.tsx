@@ -27,10 +27,26 @@ export const TodoCard = ({
             }),
         });
     }
+    function handleCheckbox() {
+        modifyUser({
+            ...user,
+            todoList: user.todoList.map(setConclusion),
+        });
+    }
+    function setConclusion(task: TaskModel, i: number){
+        return index === i ? { ...task, taskConcluded: !taskConcluded } : task
+    }
+
     return (
         <div className={styles["todo-card"]}>
             <div className={styles["card-task"]}>
-                <input type="checkbox" checked={taskConcluded} />
+                <input
+                    type="checkbox"
+                    checked={taskConcluded}
+                    onChange={() => {
+                        handleCheckbox();
+                    }}
+                />
                 <div className={styles["card-title"]}>
                     Task:
                     <strong>{taskTitle}</strong>
