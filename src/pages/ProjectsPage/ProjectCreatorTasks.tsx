@@ -32,6 +32,16 @@ export const ProjectCreatorTasks = ({
         };
     }
 
+    function removeProjectTask(taskIndex: number) {
+        setProjectTasks(
+            projectTasks.filter((task, index) => {
+                if (index !== taskIndex) {
+                    return task;
+                }
+            })
+        );
+    }
+
     return (
         <div className={styles["project-creator-tasks"]}>
             <h3>Add Tasks</h3>
@@ -54,7 +64,9 @@ export const ProjectCreatorTasks = ({
                         Add
                     </button>
                 </div>
-                <select>
+                <select onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+                    setTaskPriority(event.target.value)
+                }}>
                     <option value="Low">Low Priority</option>
                     <option value="Medium">Medium Priority</option>
                     <option value="High">High Priority</option>
@@ -68,9 +80,11 @@ export const ProjectCreatorTasks = ({
                     ) => {
                         return (
                             <ProjectCreatorTaskCard
+                                removeProjectTask={removeProjectTask}
                                 taskTitle={taskTitle}
                                 taskPriority={taskPriority}
                                 key={index}
+                                index={index}
                             />
                         );
                     }

@@ -28,14 +28,14 @@ export const ProjectCreatorModal = ({
     let [projectTasks, setProjectTasks] = useState<Array<ProjectTaskModel>>([]);
 
     function handleProjectInclusion() {
-        if(projectTitle && projectTasks.length > 0){
+        if (projectTitle && projectTasks.length > 0) {
             modifyUser({
                 ...user,
                 projectList: [...user.projectList, createNewProject()],
             });
-            toggleModal(!isActive)
+            toggleModal(!isActive);
         } else {
-            !isToastActive && toggleToast(!isToastActive)
+            !isToastActive && toggleToast(!isToastActive);
         }
     }
     function createNewProject(): ProjectModel {
@@ -43,7 +43,9 @@ export const ProjectCreatorModal = ({
             projectTitle,
             projectDeadline: new Date(projectDeadline),
             projectStatus: "Unfinished",
-            projectDescription,
+            projectDescription: projectDescription
+                ? projectDescription
+                : "None provided",
             projectTasks,
         };
     }

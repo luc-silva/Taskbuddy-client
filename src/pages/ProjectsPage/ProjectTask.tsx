@@ -1,13 +1,17 @@
 import { ProjectTaskModel } from "./ProjectPageModels";
 
-import styles from "./ProjectTask.module.css"
+import styles from "./ProjectTask.module.css";
 
-export const ProjectTask = ({taskTitle, taskPriority}: ProjectTaskModel) => {
+interface ProjectCardTasks extends ProjectTaskModel {
+    index: number;
+}
+
+export const ProjectTask = ({ taskTitle, taskPriority, index }: ProjectCardTasks) => {
     return (
         <div className={styles["task-card"]}>
             <span className={styles["task-card-main"]}>
                 <span>
-                    <strong>1#</strong>
+                    <strong>{index + 1}#</strong>
                     <input type="checkbox" />
                 </span>
                 <strong>{taskTitle}</strong>

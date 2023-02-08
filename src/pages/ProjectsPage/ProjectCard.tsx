@@ -47,6 +47,7 @@ export const ProjectCard = ({
                                 taskPriority={taskPriority}
                                 taskTitle={taskTitle}
                                 key={index}
+                                index={index}
                             />
                         );
                     })}
