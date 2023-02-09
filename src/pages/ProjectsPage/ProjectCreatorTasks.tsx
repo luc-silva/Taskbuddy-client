@@ -27,6 +27,7 @@ export const ProjectCreatorTasks = ({
 
     function createNewProjectTask(): ProjectTaskModel {
         return {
+            taskCompleted: false,
             taskTitle: taskTitle,
             taskPriority: taskPriority,
         };
@@ -64,9 +65,11 @@ export const ProjectCreatorTasks = ({
                         Add
                     </button>
                 </div>
-                <select onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                    setTaskPriority(event.target.value)
-                }}>
+                <select
+                    onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+                        setTaskPriority(event.target.value);
+                    }}
+                >
                     <option value="Low">Low Priority</option>
                     <option value="Medium">Medium Priority</option>
                     <option value="High">High Priority</option>
@@ -80,9 +83,10 @@ export const ProjectCreatorTasks = ({
                     ) => {
                         return (
                             <ProjectCreatorTaskCard
-                                removeProjectTask={removeProjectTask}
                                 taskTitle={taskTitle}
                                 taskPriority={taskPriority}
+                                taskCompleted
+                                removeProjectTask={removeProjectTask}
                                 key={index}
                                 index={index}
                             />

@@ -18,7 +18,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     gap: 0.5rem;
+}
+.card-maininfo span{
+    display: flex;
+    align-items: center;
 }
 .maininfo-counter {
     display: flex;

@@ -40,12 +40,15 @@ export const ProjectPage = ({
                     ) => {
                         return (
                             <ProjectCard
+                                user={user}
                                 projectTitle={projectTitle}
                                 projectDeadline={projectDeadline}
                                 projectStatus={projectStatus}
                                 projectDescription={projectDescription}
                                 projectTasks={projectTasks}
+                                modifyUser={modifyUser}
                                 key={index}
+                                projectIndex={index}
                             />
                         );
                     }
