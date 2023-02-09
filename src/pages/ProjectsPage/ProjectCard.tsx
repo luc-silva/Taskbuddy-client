@@ -29,15 +29,19 @@ export const ProjectCard = ({
         if (getCompletedTasksTotal() === projectTasks.length) {
             modifyUser({ ...user, projectList: setProjectStatus("Finished") });
         } else {
-            modifyUser({ ...user, projectList: setProjectStatus("Unfinished") });
+            modifyUser({
+                ...user,
+                projectList: setProjectStatus("Unfinished"),
+            });
         }
-    }, [user]);
+    }, [projectTasks]);
 
     function setProjectStatus(status: string) {
         return user.projectList.map((project: ProjectModel, index: number) => {
-            if(projectIndex === index) return {...project, projectStatus: status}
-            return project
-        })
+            if (projectIndex === index)
+                return { ...project, projectStatus: status };
+            return project;
+        });
     }
 
     function getCompletedTasksTotal() {
@@ -45,7 +49,15 @@ export const ProjectCard = ({
             if (task.taskCompleted) return task;
         }).length;
     }
-
+    function handleDeleteBtn() {
+        modifyUser({
+            ...user,
+            projectList: user.projectList.filter(removeProject)
+        });
+    }
+    function removeProject(project: ProjectModel, index: number) {
+        if (projectIndex !== index) return project;
+    }
     return (
         <div className={styles["project-card"]}>
             <div>
@@ -68,7 +80,14 @@ export const ProjectCard = ({
                             Status:
                             <strong>{projectStatus}</strong>
                         </span>
-                        <Trash size={30} color="red" weight="regular" />
+                        <Trash
+                            size={30}
+                            color="red"
+                            weight="regular"
+                            onClick={() => {
+                                handleDeleteBtn();
+                            }}
+                        />
                     </span>
                 </div>
             </div>
