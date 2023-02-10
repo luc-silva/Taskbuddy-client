@@ -1,8 +1,9 @@
 import { ArrowSquareOut } from "phosphor-react";
 import { User } from "../../userData";
 import { TaskModel } from "../TodosPage/TaskModel";
-import { format } from "date-fns";
+import { compareAsc, compareDesc, format } from "date-fns";
 import styles from "./DashboardPage.module.css";
+import { DashboardStatus } from "./DashboardStatus";
 
 export const DashboardPage = ({ user }: { user: User }) => {
     function getConcludedTasks() {
@@ -17,13 +18,12 @@ export const DashboardPage = ({ user }: { user: User }) => {
     function getConcludedProjects() {
         let total = 0;
         for (let item of user.projectList) {
-            if (item && item.projectStatus) {
+            if (item && item.projectStatus === "Finished") {
                 total++;
             }
         }
         return total;
     }
-
     return (
         <div className={styles["dashboard-page"]}>
             <main className={styles["info-container"]}>
@@ -32,19 +32,23 @@ export const DashboardPage = ({ user }: { user: User }) => {
                     <p>You currently have:</p>
                 </div>
                 <div className={styles["container-counter"]}>
-                    <span>
-                        {getConcludedTasks()} of {user.todoList.length}
-                        tasks done!
-                    </span>
-                    <span>
-                        {getConcludedProjects()} of {user.projectList.length}
-                        projects done!
-                    </span>
+                    <div className={styles["counter-display"]}>
+                        <div>
+                            <strong>{getConcludedTasks()}</strong>
+                            of {user.todoList.length} tasks done!
+                        </div>
+                    </div>
+                    <div className={styles["counter-display"]}>
+                        <div>
+                            <strong>{getConcludedProjects()}</strong>
+                            of {user.projectList.length} projects done!
+                        </div>
+                    </div>
                 </div>
 
                 <div className={styles["expiring-tasks"]}>
                     <div className={styles["expiring-tasks-title"]}>
-                        <h3>Close to expire tasks</h3>
+                        <h2>Close to expire tasks</h2>
                         <p>Track what you have to do</p>
                     </div>
                     <div className={styles["expiring-tasks-container"]}>
@@ -94,22 +98,10 @@ export const DashboardPage = ({ user }: { user: User }) => {
                     </ul>
                 </div>
 
-                <div className={styles["status-container"]}>
-                    <div className={styles["status-container-title"]}>
-                        <h3>Status</h3>
-                        <p>All your history in this app!</p>
-                    </div>
-                    <div>
-                        <div>
-                            Projects planned:
-                            {user.projectList.length}
-                        </div>
-                        <div>
-                            To-dos created:
-                            {user.todoList.length}
-                        </div>
-                    </div>
-                </div>
+                <DashboardStatus
+                    todoList={user.todoList}
+                    projectList={user.projectList}
+                />
             </aside>
         </div>
     );
