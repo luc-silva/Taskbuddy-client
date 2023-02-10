@@ -32,26 +32,30 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid whitesmoke;
 }
-.container-counter strong{
+.container-counter strong {
     font-size: 4rem;
     font-weight: 300;
 }
-.counter-display{
+.counter-display {
     display: flex;
 }
 
-.expiring-tasks {
+.important-tasks {
     display: flex;
     flex-direction: column;
 }
-.expiring-tasks-title {
+.important-tasks-title {
     margin-bottom: 0.5rem;
 }
-.expiring-tasks-title p {
+.important-tasks-title p,
+.important-tasks-title a {
     color: var(--main-color);
     font-size: 0.8rem;
 }
-.expiring-tasks-container {
+.important-tasks-title a {
+    text-decoration: underline;
+}
+.important-tasks-container {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -87,6 +91,6 @@
     gap: 0.25rem;
     line-height: 0;
 }
-.links-container ul{
+.links-container ul {
     padding: 1rem 1rem;
 }

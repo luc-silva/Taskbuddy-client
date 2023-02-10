@@ -34,8 +34,8 @@ export const TodoCard = ({
             todoList: user.todoList.map(setConclusion),
         });
     }
-    function setConclusion(task: TaskModel, i: number){
-        return index === i ? { ...task, taskConcluded: !taskConcluded } : task
+    function setConclusion(task: TaskModel, i: number) {
+        return index === i ? { ...task, taskConcluded: !taskConcluded } : task;
     }
 
     return (
@@ -48,15 +48,14 @@ export const TodoCard = ({
                         handleCheckbox();
                     }}
                 />
-                <div className={styles["task-main"]} >
-                    <div className={styles["card-title"]}>
-                        Task:
-                        <strong>{taskTitle}</strong>
-                    </div>
-                    <div className={styles["card-priority"]}>
-                        Priority:
-                        <strong>{taskPriority}</strong>
-                    </div>
+
+                <div className={styles["card-title"]}>
+                    Task:
+                    <strong>{taskTitle}</strong>
+                </div>
+                <div className={styles["card-priority"]}>
+                    Priority:
+                    <strong>{taskPriority}</strong>
                 </div>
             </div>
 

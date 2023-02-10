@@ -70,7 +70,7 @@ export const TaskCreatorModal = ({
                         Task
                         <input
                             type="text"
-                            max={20}
+                            maxLength={20}
                             value={taskTitle}
                             onChange={(event) => {
                                 setTaskTitle(event.target.value);

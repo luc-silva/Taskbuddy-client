@@ -47,10 +47,10 @@ export const DashboardPage = ({ user }: { user: User }) => {
                     </div>
                 </div>
 
-                <div className={styles["expiring-tasks"]}>
-                    <div className={styles["expiring-tasks-title"]}>
-                        <h2>Important tasks to completed</h2>
-                        <p>Track what you have to do</p>
+                <div className={styles["important-tasks"]}>
+                    <div className={styles["important-tasks-title"]}>
+                        <h3>Important tasks to complete</h3>
+                        <p>Track what you have to do. Go to <a href="/tasks">to-dos</a> for more details</p>
                     </div>
                     <div className={styles["important-tasks-container"]}>
                         {user.todoList

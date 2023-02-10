@@ -17,15 +17,12 @@
     gap: 1rem;
     width: 50%;
 }
-.task-main{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 50%;
-}
 /* .card-checkbox {
 
 }*/
+.card-title{
+    width: 30%;
+}
 .card-title,
 .card-priority {
     display: flex;
