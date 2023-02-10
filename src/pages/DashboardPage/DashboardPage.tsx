@@ -4,6 +4,7 @@ import { TaskModel } from "../TodosPage/TaskModel";
 import { compareAsc, compareDesc, format } from "date-fns";
 import styles from "./DashboardPage.module.css";
 import { DashboardStatus } from "./DashboardStatus";
+import { DashboardImportantTask } from "./DashboardImportantTask";
 
 export const DashboardPage = ({ user }: { user: User }) => {
     function getConcludedTasks() {
@@ -48,24 +49,40 @@ export const DashboardPage = ({ user }: { user: User }) => {
 
                 <div className={styles["expiring-tasks"]}>
                     <div className={styles["expiring-tasks-title"]}>
-                        <h2>Close to expire tasks</h2>
+                        <h2>Important tasks to completed</h2>
                         <p>Track what you have to do</p>
                     </div>
-                    <div className={styles["expiring-tasks-container"]}>
-                        {user.todoList.map((task: TaskModel, index: number) => {
-                            if (index > 4) return null;
-                            return (
-                                <div className={styles["expiring-task"]}>
-                                    <strong>{task.taskTitle}</strong>
-                                    <p>
-                                        {format(
-                                            task.taskDeadline,
-                                            "MM/dd/yyyy"
-                                        )}
-                                    </p>
-                                </div>
-                            );
-                        })}
+                    <div className={styles["important-tasks-container"]}>
+                        {user.todoList
+                            .filter((task) => {
+                                if (
+                                    task.taskPriority !== "Low Priority" &&
+                                    task.taskPriority !== "Medium Priority"
+                                ) {
+                                    return task
+                                }
+                            })
+                            .map(
+                                (
+                                    {
+                                        taskTitle,
+                                        taskDeadline,
+                                        taskConcluded,
+                                        taskPriority,
+                                    }: TaskModel,
+                                    index: number
+                                ) => {
+                                    return (
+                                        <DashboardImportantTask
+                                            taskTitle={taskTitle}
+                                            taskDeadline={taskDeadline}
+                                            taskConcluded={taskConcluded}
+                                            taskPriority={taskPriority}
+                                            key={index}
+                                        />
+                                    );
+                                }
+                            )}
                     </div>
                 </div>
             </main>

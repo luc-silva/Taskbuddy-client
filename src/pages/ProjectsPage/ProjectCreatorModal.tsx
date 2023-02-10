@@ -33,6 +33,7 @@ export const ProjectCreatorModal = ({
                 ...user,
                 projectList: [...user.projectList, createNewProject()],
             });
+            clearModal()
             toggleModal(!isActive);
         } else {
             !isToastActive && toggleToast(!isToastActive);
@@ -48,6 +49,12 @@ export const ProjectCreatorModal = ({
                 : "None provided",
             projectTasks,
         };
+    }
+    function clearModal(){
+        setProjectDeadline("2023-02-09")
+        setProjectDescription("")
+        setProjectTitle("")
+        setProjectTasks([])
     }
     if (!isActive) return null;
     return (

@@ -30,12 +30,13 @@ export const TodosPage = ({
             <div className={styles["tasks-container"]}>
                 {tasks.map(
                     (
-                        { taskConcluded, taskTitle, taskDeadline }: TaskModel,
+                        { taskConcluded, taskTitle, taskDeadline,taskPriority }: TaskModel,
                         index: number
                     ) => (
                         <TodoCard
                             user={user}
                             modifyUser={modifyUser}
+                            taskPriority={taskPriority}
                             taskConcluded={taskConcluded}
                             taskTitle={taskTitle}
                             taskDeadline={taskDeadline}

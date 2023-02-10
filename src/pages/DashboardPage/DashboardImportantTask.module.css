@@ -1,0 +1,8 @@
+.important-task {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}

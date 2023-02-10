@@ -1,3 +1,4 @@
+import { setPriority } from "os";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { AppButtonPanel } from "../../components/Buttons/AppButtonPanel";
 import { AppCloseButton } from "../../components/Buttons/AppCloseButton";
@@ -21,6 +22,7 @@ export const TaskCreatorModal = ({
 }) => {
     let [taskTitle, setTaskTitle] = useState("");
     let [taskDeadline, setTaskDeadline] = useState("2023-02-09");
+    let [taskPriority, setTaskPriority] = useState("Low Priority");
 
     function handleTaskCreator() {
         if (taskTitle) {
@@ -28,9 +30,10 @@ export const TaskCreatorModal = ({
                 ...user,
                 todoList: [...user.todoList, createTask()],
             });
+            clearModal();
             toggleModal(!isActive);
         } else {
-            !isToastActive && toggleToast(!isToastActive)
+            !isToastActive && toggleToast(!isToastActive);
         }
     }
     function createTask() {
@@ -38,9 +41,14 @@ export const TaskCreatorModal = ({
             taskTitle,
             taskDeadline: new Date(taskDeadline),
             taskConcluded: false,
+            taskPriority: taskPriority,
         };
     }
-
+    function clearModal() {
+        setTaskDeadline("2023-02-09");
+        setTaskPriority("Low Priority");
+        setTaskTitle("");
+    }
     if (!isActive) return null;
     return (
         <div
@@ -62,6 +70,7 @@ export const TaskCreatorModal = ({
                         Task
                         <input
                             type="text"
+                            max={20}
                             value={taskTitle}
                             onChange={(event) => {
                                 setTaskTitle(event.target.value);
@@ -82,12 +91,23 @@ export const TaskCreatorModal = ({
 
                     <div className={styles["input-div"]}>
                         Priority
-                        <select>
-                            <option>Low Priority</option>
-                            <option>Medium Priority</option>
-                            <option>High Priority</option>
-                            <option>Urgent</option>
-                            <option>You should do it NOW!</option>
+                        <select
+                            value={taskPriority}
+                            onChange={(
+                                event: ChangeEvent<HTMLSelectElement>
+                            ) => {
+                                setTaskPriority(event.target.value);
+                            }}
+                        >
+                            <option value="Low Priority">Low Priority</option>
+                            <option value="Medium Priority">
+                                Medium Priority
+                            </option>
+                            <option value="High Priority">High Priority</option>
+                            <option value="Urgent">Urgent</option>
+                            <option value="You should do it NOW!">
+                                You should do it NOW!
+                            </option>
                         </select>
                     </div>
                 </div>

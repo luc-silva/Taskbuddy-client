@@ -14,6 +14,7 @@ export const TodoCard = ({
     taskConcluded,
     taskTitle,
     taskDeadline,
+    taskPriority,
     user,
     modifyUser,
 }: TodoCardModel) => {
@@ -47,9 +48,15 @@ export const TodoCard = ({
                         handleCheckbox();
                     }}
                 />
-                <div className={styles["card-title"]}>
-                    Task:
-                    <strong>{taskTitle}</strong>
+                <div className={styles["task-main"]} >
+                    <div className={styles["card-title"]}>
+                        Task:
+                        <strong>{taskTitle}</strong>
+                    </div>
+                    <div className={styles["card-priority"]}>
+                        Priority:
+                        <strong>{taskPriority}</strong>
+                    </div>
                 </div>
             </div>
 

@@ -1,13 +1,13 @@
-import { ProjectModel } from "./ProjectPageModels";
-import { ProjectTask } from "./ProjectTask";
+import { useEffect } from "react";
 
 import { format } from "date-fns";
+import { Trash } from "phosphor-react";
+
+import { ProjectTask } from "./ProjectTask";
+import { ProjectModel, ProjectTaskModel } from "./ProjectPageModels";
 import { User } from "../../userData";
 
 import styles from "./ProjectCard.module.css";
-import { TaskModel } from "../TodosPage/TaskModel";
-import { useEffect } from "react";
-import { Trash } from "phosphor-react";
 
 interface ProjectCardModel extends ProjectModel {
     modifyUser: Function;
@@ -45,14 +45,14 @@ export const ProjectCard = ({
     }
 
     function getCompletedTasksTotal() {
-        return projectTasks.filter((task, index) => {
+        return projectTasks.filter((task: ProjectTaskModel, index: number) => {
             if (task.taskCompleted) return task;
         }).length;
     }
     function handleDeleteBtn() {
         modifyUser({
             ...user,
-            projectList: user.projectList.filter(removeProject)
+            projectList: user.projectList.filter(removeProject),
         });
     }
     function removeProject(project: ProjectModel, index: number) {
