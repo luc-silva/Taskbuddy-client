@@ -46,7 +46,7 @@ export const DashboardStatus = ({
             }
         });
 
-        return (total / todoLen) * 100;
+        return ((total / todoLen) * 100).toFixed(1);
     }
     return (
         <div className={styles["status-container"]}>

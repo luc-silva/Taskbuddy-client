@@ -50,7 +50,10 @@ export const DashboardPage = ({ user }: { user: User }) => {
                 <div className={styles["important-tasks"]}>
                     <div className={styles["important-tasks-title"]}>
                         <h3>Important tasks to complete</h3>
-                        <p>Track what you have to do. Go to <a href="/tasks">to-dos</a> for more details</p>
+                        <p>
+                            Track what you have to do. Go to{" "}
+                            <a href="/tasks">to-dos</a> for more details
+                        </p>
                     </div>
                     <div className={styles["important-tasks-container"]}>
                         {user.todoList
@@ -59,7 +62,7 @@ export const DashboardPage = ({ user }: { user: User }) => {
                                     task.taskPriority !== "Low Priority" &&
                                     task.taskPriority !== "Medium Priority"
                                 ) {
-                                    return task
+                                    return task;
                                 }
                             })
                             .map(
@@ -95,7 +98,10 @@ export const DashboardPage = ({ user }: { user: User }) => {
                     </div>
                     <ul>
                         <li>
-                            <a href="https://github.com/luc-silva">
+                            <a
+                                href="https://github.com/luc-silva"
+                                target={"_blank"}
+                            >
                                 Github
                                 <ArrowSquareOut
                                     size={18}
@@ -104,7 +110,10 @@ export const DashboardPage = ({ user }: { user: User }) => {
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/silva-luc/">
+                            <a
+                                href="https://www.linkedin.com/in/silva-luc/"
+                                target={"_blank"}
+                            >
                                 LinkedIn
                                 <ArrowSquareOut
                                     size={18}
