@@ -22,4 +22,6 @@ And then, start your localhost server:
 ``npm start``
 
 ## Plans for the future:
+- Database
+- User sistem
 - Refactor the whole project
