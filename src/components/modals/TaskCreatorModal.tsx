@@ -1,7 +1,7 @@
 import { setPriority } from "os";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { AppButtonPanel } from "../../components/Buttons/AppButtonPanel";
-import { AppCloseButton } from "../../components/Buttons/AppCloseButton";
+import { AppButtonPanel } from "../buttons/AppButtonPanel";
+import { AppCloseButton } from "../buttons/AppCloseButton";
 import styles from "./TaskCreatorModal.module.css";
 import { TaskModel } from "./TaskModel";
 

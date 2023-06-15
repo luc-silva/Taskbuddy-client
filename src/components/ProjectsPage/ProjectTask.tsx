@@ -1,6 +1,4 @@
-import { ChangeEvent } from "react";
 import { User } from "../../userData";
-import { TaskModel } from "../TodosPage/TaskModel";
 import { ProjectModel, ProjectTaskModel } from "./ProjectPageModels";
 
 import styles from "./ProjectTask.module.css";

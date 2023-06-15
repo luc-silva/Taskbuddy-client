@@ -1,7 +1,7 @@
-import { AppAddButton } from "../../components/Buttons/AppAddButton";
-import { TaskModel } from "./TaskModel";
-import { TodoCard } from "./TodoCard";
-import { User } from "../../userData";
+import { AppAddButton } from "../components/buttons/AppAddButton";
+import { TaskModel } from "../components/TodosPage/TaskModel";
+import { TodoCard } from "../components/TodosPage/TodoCard";
+import { User } from "../userData";
 
 import styles from "./TodosPage.module.css";
 

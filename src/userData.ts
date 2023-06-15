@@ -1,5 +1,5 @@
-import { ProjectModel } from "./pages/ProjectsPage/ProjectPageModels";
-import { TaskModel } from "./pages/TodosPage/TaskModel";
+import { ProjectModel } from "./components/ProjectsPage/ProjectPageModels";
+import { TaskModel } from "./components/TodosPage/TaskModel";
 
 export interface User {
     firstName: string;

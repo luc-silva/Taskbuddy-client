@@ -1,11 +1,10 @@
 import { ChangeEvent, useState } from "react";
-import { AppButtonPanel } from "../../components/Buttons/AppButtonPanel";
-import { AppCloseButton } from "../../components/Buttons/AppCloseButton";
-import { ProjectModel, ProjectTaskModel } from "./ProjectPageModels";
+import { AppCloseButton } from "../buttons/AppCloseButton";
 import { User } from "../../userData";
 
+import { ProjectCreatorTasks } from "../ProjectsPage/ProjectCreatorTasks";
+import { AppButtonPanel } from "../panels/AppButtonPanel";
 import styles from "./ProjectCreatorModal.module.css";
-import { ProjectCreatorTasks } from "./ProjectCreatorTasks";
 
 export const ProjectCreatorModal = ({
     isToastActive,
@@ -25,7 +24,7 @@ export const ProjectCreatorModal = ({
     let [projectTitle, setProjectTitle] = useState("");
     let [projectDescription, setProjectDescription] = useState("");
     let [projectDeadline, setProjectDeadline] = useState("2023-02-09");
-    let [projectTasks, setProjectTasks] = useState<Array<ProjectTaskModel>>([]);
+    let [projectTasks, setProjectTasks] = useState([]);
 
     function handleProjectInclusion() {
         if (projectTitle && projectTasks.length > 0) {
@@ -39,12 +38,11 @@ export const ProjectCreatorModal = ({
             !isToastActive && toggleToast(!isToastActive);
         }
     }
-    function createNewProject(): ProjectModel {
+    function createNewProject(): IProject {
         return {
-            projectTitle,
-            projectDeadline: new Date(projectDeadline),
-            projectStatus: "Unfinished",
-            projectDescription: projectDescription
+            title,
+            deadline: `${new Date(projectDeadline)}`,
+            description: projectDescription
                 ? projectDescription
                 : "None provided",
             projectTasks,

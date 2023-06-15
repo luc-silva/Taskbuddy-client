@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { AppAddButton } from "../../components/Buttons/AppAddButton";
-import { User } from "../../userData";
-import { ProjectCard } from "./ProjectCard";
-import { ProjectModel } from "./ProjectPageModels";
+import { AppAddButton } from "../components/buttons/AppAddButton";
+import { User } from "../userData";
+import { ProjectCard } from "../components/ProjectsPage/ProjectCard";
+import { ProjectModel } from "../components/ProjectsPage/ProjectPageModels";
 
 import styles from "./ProjectsPage.module.css";
 

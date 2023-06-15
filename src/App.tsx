@@ -1,20 +1,18 @@
-import { ProjectModel } from "./pages/ProjectsPage/ProjectPageModels";
-import { TaskModel } from "./pages/TodosPage/TaskModel";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-
-import { SideNavbar } from "./components/SideNavbar/SideNavbar";
-import { ProjectPage } from "./pages/ProjectsPage/ProjectsPage";
-import { TodosPage } from "./pages/TodosPage/TodosPage";
-import { TaskCreatorModal } from "./pages/TodosPage/TaskCreatorModal";
-import { ProjectCreatorModal } from "./pages/ProjectsPage/ProjectCreatorModal";
-import { AppHeader } from "./components/AppHeader/AppHeader";
-
 import { userData } from "./userData";
-import "./global.css";
-import { DashboardPage } from "./pages/DashboardPage/DashboardPage";
-import { ErrorToast } from "./components/ErrorToast/ErrorToast";
+
+import { ProjectPage } from "./pages/ProjectsPage";
+import { TodosPage } from "./pages/TodosPage"; 
+import { DashboardPage } from "./pages/DashboardPage";
+
+import { ProjectCreatorModal } from "./components/modals/ProjectCreatorModal";
+import { TaskCreatorModal } from "./components/modals/TaskCreatorModal";
+import { ErrorToast } from "./components/misc/ErrorToast";
+import { AppHeader } from "./components/misc/AppHeader";
+import { SideNavbar } from "./components/misc/SideNavbar";
+import "./taskbuddy.css";
+
 
 function App() {
     let [loggedUser, setLoggedUser] = useState(userData);
