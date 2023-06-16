@@ -1,31 +1,24 @@
-import { ProjectTaskModel } from "./ProjectPageModels";
 import { Trash } from "phosphor-react";
 
 import styles from "./ProjectCreatorTaskCard.module.css";
 
-interface ProjectTaskCardModel extends ProjectTaskModel {
-    index: number;
-    removeProjectTask: Function;
-}
-
-export const ProjectCreatorTaskCard = ({
-    taskTitle,
-    taskPriority,
+export const ProjectCreatorTaskCard = ({ 
+    task,
     index,
-    removeProjectTask,
-}: ProjectTaskCardModel) => {
+    setProjectTask,
+}: {
+    task:IProjectTask
+    index:number
+    setProjectTask: Function;
+}) => {
+    function removeTask() {}
     return (
         <div className={styles["task-card"]}>
             <div className={styles["card-maininfo"]}>
-                <strong>{taskTitle}</strong>
-                <span>{taskPriority} Priority</span>
+                <strong>{task.title}</strong>
+                <span>{task.priority} Priority</span>
             </div>
-            <div
-                className={styles["card-icons"]}
-                onClick={() => {
-                    removeProjectTask(index);
-                }}
-            >
+            <div className={styles["card-icons"]} onClick={removeTask}>
                 <Trash size={24} />
             </div>
         </div>
