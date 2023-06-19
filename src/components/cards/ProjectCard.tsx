@@ -1,121 +1,60 @@
-import { useEffect } from "react";
+import ProjectService from "../../services/ProjectService";
+import { projectInitialValues } from "../../constants/initial-values";
+import { useEffect, useState } from "react";
 
-import { format } from "date-fns";
-import { Trash } from "phosphor-react";
-
-import { ProjectTask } from "./ProjectTask";
-import { ProjectModel, ProjectTaskModel } from "./ProjectPageModels";
-import { User } from "../../userData";
+import { ProjectTasksDisplay } from "../displays/ProjectTasksDisplay";
+import { ProjectAboutDisplay } from "../displays/ProjectAboutDisplay";
 
 import styles from "./ProjectCard.module.css";
 
-interface ProjectCardModel extends ProjectModel {
-    modifyUser: Function;
-    user: User;
-    projectIndex: number;
-}
-
-export const ProjectCard = ({
-    user,
-    projectTitle,
-    projectDeadline,
-    projectStatus,
-    projectDescription,
-    projectTasks,
-    modifyUser,
-    projectIndex,
-}: ProjectCardModel) => {
-    useEffect(() => {
-        if (getCompletedTasksTotal() === projectTasks.length) {
-            modifyUser({ ...user, projectList: setProjectStatus("Finished") });
-        } else {
-            modifyUser({
-                ...user,
-                projectList: setProjectStatus("Unfinished"),
-            });
-        }
-    }, [projectTasks]);
-
-    function setProjectStatus(status: string) {
-        return user.projectList.map((project: ProjectModel, index: number) => {
-            if (projectIndex === index)
-                return { ...project, projectStatus: status };
-            return project;
-        });
-    }
+export const ProjectCard = ({ id }: { id: number }) => {
+    let [project, setProject] = useState(projectInitialValues);
 
     function getCompletedTasksTotal() {
-        return projectTasks.filter((task: ProjectTaskModel, index: number) => {
-            if (task.taskCompleted) return task;
+        let tasks = [...project.projectTasks];
+        return tasks.filter((task: IProjectTask, index: number) => {
+            if (task.completed) return task;
         }).length;
     }
     function handleDeleteBtn() {
-        modifyUser({
-            ...user,
-            projectList: user.projectList.filter(removeProject),
+        ProjectService.delete(id).then((data: IMessageResponse) => {
+            console.log(data.message);
         });
     }
-    function removeProject(project: ProjectModel, index: number) {
-        if (projectIndex !== index) return project;
-    }
+
+    useEffect(() => {
+        ProjectService.get(id).then((data) => {
+            setProject(data);
+        });
+    }, [id]);
     return (
-        <div className={styles["project-card"]}>
-            <div>
-                <div className={styles["card-title"]}>{projectTitle}</div>
-                <div className={styles["card-maininfo"]}>
-                    <span className={styles["maininfo-counter"]}>
+        <div className={styles["project"]}>
+            <div className={styles["project__main"]}>
+                <div className={styles["project__title"]}>
+                    <h2>{project.title}</h2>
+                </div>
+                <div className={styles["project__about"]}>
+                    <div className={styles["about__counter"]}>
                         Tasks completed
                         <strong>
-                            {getCompletedTasksTotal()}/{projectTasks.length}
+                            {getCompletedTasksTotal()}/
+                            {project.projectTasks.length}
                         </strong>
-                    </span>
-                    <span className={styles["maininfo-extra"]}>
-                        <span>
-                            Deadline:
-                            <strong>
-                                {format(projectDeadline, "MM/dd/yyyy")}
-                            </strong>
-                        </span>
-                        <span>
-                            Status:
-                            <strong>{projectStatus}</strong>
-                        </span>
-                        <Trash
-                            size={30}
-                            color="red"
-                            weight="regular"
-                            onClick={() => {
-                                handleDeleteBtn();
-                            }}
+                    </div>
+                    <div className={styles["about__extra"]}>
+                        <ProjectAboutDisplay
+                            data={project}
+                            handleDelete={handleDeleteBtn}
                         />
-                    </span>
+                    </div>
                 </div>
             </div>
-            <div className={styles["card-description"]}>
+            <div className={styles["project__description"]}>
                 <strong>Description:</strong>
-                {projectDescription}
+                {project.description}
             </div>
-
-            <div className={styles["card-tasks"]}>
-                <strong>Tasks:</strong>
-                <div className={styles["tasks-container"]}>
-                    {projectTasks.map(
-                        ({ taskCompleted, taskPriority, taskTitle }, index) => {
-                            return (
-                                <ProjectTask
-                                    user={user}
-                                    modifyUser={modifyUser}
-                                    taskCompleted={taskCompleted}
-                                    taskPriority={taskPriority}
-                                    taskTitle={taskTitle}
-                                    projectIndex={projectIndex}
-                                    index={index}
-                                    key={index}
-                                />
-                            );
-                        }
-                    )}
-                </div>
+            <div className={styles["project__tasks"]}>
+                <ProjectTasksDisplay tasks={project.projectTasks} />
             </div>
         </div>
     );

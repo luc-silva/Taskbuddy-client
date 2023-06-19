@@ -1,54 +1,44 @@
-.project-card {
+.project {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
 
-    gap: 1rem;
     width: 100%;
     padding: 1rem;
     border-radius: 5px;
 
     background-color: whitesmoke;
 }
-.card-title {
-    font-size: 1.7rem;
-    font-weight: 700;
+.project__main {
+    margin-bottom: 1rem;
 }
-.card-maininfo {
+
+.project__title {
+    font-size: 1.7rem;
+}
+.project__about {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
 }
-.card-maininfo span{
+.project__about span {
     display: flex;
     align-items: center;
 }
-.maininfo-counter {
+.about__counter {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
 }
-.maininfo-extra {
+.about__extra {
     display: flex;
     flex-direction: row;
     gap: 1.5rem;
 }
-.maininfo-extra > span {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-}
-.card-description,
-.card-tasks,
-.tasks-container {
+.project__description,
+.project__tasks {
     display: flex;
     flex-direction: column;
-}
-.card-tasks > strong {
-    font-size: 1.3rem;
-}
-.tasks-container{
-    align-items: center;
 }
