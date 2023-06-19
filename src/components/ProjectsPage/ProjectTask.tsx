@@ -1,71 +1,40 @@
-import { User } from "../../userData";
-import { ProjectModel, ProjectTaskModel } from "./ProjectPageModels";
-
+import { ChangeEvent, useEffect, useState } from "react";
 import styles from "./ProjectTask.module.css";
+import { projectTaskInitialValues } from "../../constants/initial-values";
+import ProjectTaskService from "../../services/ProjectTaskService";
 
-interface ProjectCardTasks extends ProjectTaskModel {
-    projectIndex: number;
-    user: User;
-    modifyUser: Function;
-    index: number;
-}
+export const ProjectTask = ({ data }: { data: IProjectTask }) => {
+    let [taskDetails, setTaskDetails] = useState(projectTaskInitialValues);
+    function handleCheckbox(event: ChangeEvent<HTMLInputElement>) {
+        setTaskDetails({ ...taskDetails, completed: !taskDetails.completed });
+        ProjectTaskService.update(taskDetails.id, taskDetails)
+    }
 
-export const ProjectTask = ({
-    user,
-    modifyUser,
-    taskCompleted,
-    taskTitle,
-    taskPriority,
-    index,
-    projectIndex,
-}: ProjectCardTasks) => {
-    function handleCheckbox() {
-        modifyUser({
-            ...user,
-            projectList: user.projectList.map(
-                (project: ProjectModel, id: number) => {
-                    if (id === projectIndex) {
-                        return {
-                            ...project,
-                            projectTasks:
-                                project.projectTasks.map(changeTaskChecked),
-                        };
-                    } else {
-                        return project;
-                    }
-                }
-            ),
+    async function update() {
+        await ProjectTaskService.get(data.id).then((data) => {
+            setTaskDetails(data);
         });
     }
-
-    function changeTaskChecked(
-        task: ProjectTaskModel,
-        taskIndex: number
-    ): ProjectTaskModel {
-        return index === taskIndex
-            ? { ...task, taskCompleted: !taskCompleted }
-            : task;
-    }
+    useEffect(() => {
+        update();
+    }, [data]);
 
     return (
         <div className={styles["task-card"]}>
-            <span className={styles["task-card-main"]}>
-                <span>
-                    <strong>{index + 1}#</strong>
+            <div className={styles["task-card-main"]}>
+                <div>
                     <input
                         type="checkbox"
-                        checked={taskCompleted}
-                        onChange={() => {
-                            handleCheckbox();
-                        }}
+                        checked={taskDetails.completed}
+                        onChange={handleCheckbox}
                     />
-                </span>
-                <strong>{taskTitle}</strong>
-            </span>
-            <span className={styles["task-card-priority"]}>
+                </div>
+                <strong>{taskDetails.title}</strong>
+            </div>
+            <div className={styles["task-card-priority"]}>
                 Priority:
-                <strong>{taskPriority}</strong>
-            </span>
+                <strong>{taskDetails.priority}</strong>
+            </div>
         </div>
     );
 };
