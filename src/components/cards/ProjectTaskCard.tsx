@@ -3,7 +3,7 @@ import styles from "./ProjectTask.module.css";
 import { projectTaskInitialValues } from "../../constants/initial-values";
 import ProjectTaskService from "../../services/ProjectTaskService";
 
-export const ProjectTask = ({ data }: { data: IProjectTask }) => {
+export const ProjectTaskCard = ({ data }: { data: IProjectTask }) => {
     let [taskDetails, setTaskDetails] = useState(projectTaskInitialValues);
     function handleCheckbox(event: ChangeEvent<HTMLInputElement>) {
         setTaskDetails({ ...taskDetails, completed: !taskDetails.completed });
