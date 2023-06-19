@@ -1,77 +1,74 @@
 import { Trash } from "phosphor-react";
 import { format } from "date-fns";
 import styles from "./TodoCard.module.css";
-import { TaskModel } from "./TaskModel";
-
-interface TodoCardModel extends TaskModel {
-    index: number;
-    user: any;
-    modifyUser: Function;
-}
+import { useEffect, useState } from "react";
+import TodoService from "../../services/TodoService";
+import { todoInitialValues } from "../../constants/initial-values";
 
 export const TodoCard = ({
-    index,
-    taskConcluded,
-    taskTitle,
-    taskDeadline,
-    taskPriority,
-    user,
-    modifyUser,
-}: TodoCardModel) => {
-    function handleDelete() {
-        modifyUser({
-            ...user,
-            todoList: user.todoList.filter((task: TaskModel, id: number) => {
-                if (index !== id) {
-                    return task;
-                }
-            }),
+    id,
+    updateTodos,
+}: {
+    id: number;
+    updateTodos: Function;
+}) => {
+    let [todo, setTodo] = useState(todoInitialValues);
+
+    async function handleDelete() {
+        await TodoService.delete(id).then((data) => {
+            //showToast
+            updateTodos();
         });
     }
-    function handleCheckbox() {
-        modifyUser({
-            ...user,
-            todoList: user.todoList.map(setConclusion),
+    async function handleCheckbox() {
+        await TodoService.update(id, {
+            ...todo,
+            concluded: !todo.concluded,
+        }).then(() => {
+            updateCard();
         });
     }
-    function setConclusion(task: TaskModel, i: number) {
-        return index === i ? { ...task, taskConcluded: !taskConcluded } : task;
+    async function updateCard() {
+        await TodoService.get(id).then((data) => {
+            setTodo(data);
+        });
     }
+    useEffect(() => {
+        updateCard();
+    }, [id]);
 
     return (
-        <div className={styles["todo-card"]}>
-            <div className={styles["card-task"]}>
-                <input
-                    type="checkbox"
-                    checked={taskConcluded}
-                    onChange={() => {
-                        handleCheckbox();
-                    }}
-                />
-
-                <div className={styles["card-title"]}>
-                    Task:
-                    <strong>{taskTitle}</strong>
+        <div className={styles["todo"]}>
+            <div className={styles["todo__main"]}>
+                <div className={styles["todo__checkbox"]}>
+                    <input
+                        type="checkbox"
+                        checked={todo.concluded}
+                        onChange={handleCheckbox}
+                    />
                 </div>
-                <div className={styles["card-priority"]}>
+                <div className={styles["todo__title"]}>
+                    Task:
+                    <strong>{todo.text}</strong>
+                </div>
+                <div className={styles["todo__priority"]}>
                     Priority:
-                    <strong>{taskPriority}</strong>
+                    <strong>{todo.priority}</strong>
                 </div>
             </div>
-
-            <div className={styles["card-details"]}>
-                <div className={styles["card-deadline"]}>
+            <div className={styles["todo__details"]}>
+                <div className={styles["todo__deadline"]}>
                     <strong>Deadline:</strong>
-                    <span>{format(taskDeadline, "MM/dd/yyyy")}</span>
+                    <span>{format(new Date(todo.deadline), "MM/dd/yyyy")}</span>
                 </div>
-                <button
-                    className={styles["delete-btn"]}
-                    onClick={() => {
-                        handleDelete();
-                    }}
-                >
-                    <Trash size={30} color="red" weight="regular" />
-                </button>
+                <div className={styles["todo__btn-panel"]}>
+                    <button
+                        className={styles["delete-btn"]}
+                        onClick={handleDelete}
+                    >
+                        <Trash size={30} color="red" weight="regular" />
+                    </button>
+                </div>
             </div>
         </div>
     );

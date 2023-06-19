@@ -1,4 +1,4 @@
-.todo-card {
+.todo {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -11,32 +11,35 @@
     background-color: whitesmoke;
     /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 15%); */
 }
-.card-task {
+.todo__main {
     display: flex;
     flex-direction: row;
     gap: 1rem;
     width: 50%;
 }
-/* .card-checkbox {
+/* .todo__checkbox {
 
 }*/
-.card-title{
+.todo__title{
     width: 30%;
 }
-.card-title,
-.card-priority {
+.todo__title,
+.todo__priority {
     display: flex;
     flex-direction: column;
 }
-.card-details {
+.todo__details {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 1rem;
 }
-.card-deadline {
+.todo__deadline {
     display: flex;
     gap: 1rem;
+}
+.todo__btn-panel{
+    
 }
 .delete-btn {
     display: flex;
