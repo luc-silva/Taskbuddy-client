@@ -1,4 +1,4 @@
-.project-page{
+.projects{
     width: 90vw;
     flex-grow: 1;
     flex-shrink: 1;
@@ -10,7 +10,7 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.projects-container{
+.projects__container{
     margin-top: 2rem;
     box-sizing: border-box;
 

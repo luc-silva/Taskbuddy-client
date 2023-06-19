@@ -1,58 +1,40 @@
-import { useState } from "react";
+import UserService from "../services/UserService";
+import { useEffect, useState } from "react";
+
 import { AppAddButton } from "../components/buttons/AppAddButton";
-import { User } from "../userData";
-import { ProjectCard } from "../components/ProjectsPage/ProjectCard";
-import { ProjectModel } from "../components/ProjectsPage/ProjectPageModels";
+import { ProjectCard } from "../components/cards/ProjectCard";
 
 import styles from "./ProjectsPage.module.css";
 
 export const ProjectPage = ({
-    user,
-    modifyUser,
     isActive,
     toggleProjectCreator,
-    projects,
+    user
 }: {
-    user: User;
-    modifyUser: Function;
     isActive: boolean;
     toggleProjectCreator: Function;
-    projects: ProjectModel[];
+    user:IUser
 }) => {
+    let [projects, setProjects] = useState([] as IProject[])
+
+    useEffect(() => {
+        UserService.listUserProjects(user.id).then((data) => {
+            setProjects(data)
+        })
+    }, [user.id])
     return (
-        <div className={styles["project-page"]}>
-            <AppAddButton
-                text="Add Project"
-                isModalActive={isActive}
-                toggleModal={toggleProjectCreator}
-            />
-            <div className={styles["projects-container"]}>
-                {projects.map(
-                    (
-                        {
-                            projectTitle,
-                            projectDeadline,
-                            projectStatus,
-                            projectDescription,
-                            projectTasks,
-                        }: ProjectModel,
-                        index: number
-                    ) => {
-                        return (
-                            <ProjectCard
-                                user={user}
-                                projectTitle={projectTitle}
-                                projectDeadline={projectDeadline}
-                                projectStatus={projectStatus}
-                                projectDescription={projectDescription}
-                                projectTasks={projectTasks}
-                                modifyUser={modifyUser}
-                                key={index}
-                                projectIndex={index}
-                            />
-                        );
-                    }
-                )}
+        <div className={styles["projects"]}>
+            <div className={styles["button-panel"]}>
+                <AppAddButton
+                    text="Add Project"
+                    isModalActive={isActive}
+                    toggleModal={toggleProjectCreator}
+                />
+            </div>
+            <div className={styles["projects__container"]}>
+                {projects.map(({ id }: IProject, index: number) => {
+                    return <ProjectCard id={id} key={index} />;
+                })}
             </div>
         </div>
     );
