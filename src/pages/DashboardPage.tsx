@@ -1,134 +1,52 @@
-import { ArrowSquareOut } from "phosphor-react";
-import { User } from "../../userData";
-import { TaskModel } from "../TodosPage/TaskModel";
-import { compareAsc, compareDesc, format } from "date-fns";
-import styles from "./DashboardPage.module.css";
-import { DashboardStatus } from "./DashboardStatus";
-import { DashboardImportantTask } from "./DashboardImportantTask";
+import { GreetingsDisplay } from "../components/displays/GreetingsDisplay";
+import { ImportantTasksDisplay } from "../components/displays/ImportantTasksDisplay";
+import { UserStatusDisplay } from "../components/displays/UserStatusDisplay";
+import { ExternalLinks } from "../components/misc/ExternalLinks";
 
-export const DashboardPage = ({ user }: { user: User }) => {
-    function getConcludedTasks() {
-        let total = 0;
-        for (let item of user.todoList) {
-            if (item && item.taskConcluded) {
-                total++;
-            }
-        }
-        return total;
-    }
-    function getConcludedProjects() {
-        let total = 0;
-        for (let item of user.projectList) {
-            if (item && item.projectStatus === "Finished") {
-                total++;
-            }
-        }
-        return total;
-    }
+import styles from "./DashboardPage.module.css";
+
+export const DashboardPage = ({ user }: { user: IUser }) => {
+    //get concluded projects and todos
     return (
-        <div className={styles["dashboard-page"]}>
-            <main className={styles["info-container"]}>
-                <div className={styles["container-greetings"]}>
-                    <h2>Hi {user.firstName}, how are you doing?</h2>
-                    <p>You currently have:</p>
+        <main className={styles["dashboard"]}>
+            <section className={styles["dashboard__main"]}>
+                <div className={styles["greetings"]}>
+                    <GreetingsDisplay user={user} />
                 </div>
                 <div className={styles["container-counter"]}>
                     <div className={styles["counter-display"]}>
                         <div>
-                            <strong>{getConcludedTasks()}</strong>
-                            of {user.todoList.length} tasks done!
+                            <strong>{10}</strong>
+                            {/* of {user.todoList.length} tasks done! */}
                         </div>
                     </div>
                     <div className={styles["counter-display"]}>
                         <div>
-                            <strong>{getConcludedProjects()}</strong>
-                            of {user.projectList.length} projects done!
+                            <strong>{20}</strong>
+                            {/* of {user.projectList.length} projects done! */}
                         </div>
                     </div>
                 </div>
-
-                <div className={styles["important-tasks"]}>
-                    <div className={styles["important-tasks-title"]}>
-                        <h3>Important tasks to complete</h3>
-                        <p>
-                            Track what you have to do. Go to{" "}
-                            <a href="/tasks">to-dos</a> for more details
-                        </p>
-                    </div>
-                    <div className={styles["important-tasks-container"]}>
-                        {user.todoList
-                            .filter((task) => {
-                                if (
-                                    task.taskPriority !== "Low Priority" &&
-                                    task.taskPriority !== "Medium Priority"
-                                ) {
-                                    return task;
-                                }
-                            })
-                            .map(
-                                (
-                                    {
-                                        taskTitle,
-                                        taskDeadline,
-                                        taskConcluded,
-                                        taskPriority,
-                                    }: TaskModel,
-                                    index: number
-                                ) => {
-                                    return (
-                                        <DashboardImportantTask
-                                            taskTitle={taskTitle}
-                                            taskDeadline={taskDeadline}
-                                            taskConcluded={taskConcluded}
-                                            taskPriority={taskPriority}
-                                            key={index}
-                                        />
-                                    );
-                                }
-                            )}
-                    </div>
+                <div className={styles["important-tasks__display"]}>
+                    <ImportantTasksDisplay />
                 </div>
-            </main>
+            </section>
 
             <aside className={styles["extras-container"]}>
-                <div className={styles["links-container"]}>
-                    <div className={styles["links-container-title"]}>
+                <div className={styles["external-links"]}>
+                    <div className={styles["external-links__title"]}>
                         <h3>Links</h3>
                         <p>Looking for more?</p>
                     </div>
                     <ul>
-                        <li>
-                            <a
-                                href="https://github.com/luc-silva"
-                                target={"_blank"}
-                            >
-                                Github
-                                <ArrowSquareOut
-                                    size={18}
-                                    color="var(--main-color)"
-                                />
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://www.linkedin.com/in/silva-luc/"
-                                target={"_blank"}
-                            >
-                                LinkedIn
-                                <ArrowSquareOut
-                                    size={18}
-                                    color="var(--main-color)"
-                                />
-                            </a>
-                        </li>
+                        <ExternalLinks />
                     </ul>
                 </div>
 
-                <DashboardStatus
-                    todoList={user.todoList}
-                    projectList={user.projectList}
-                />
+                <div className={styles["status__display"]}>
+                    <UserStatusDisplay />
+                </div>
             </aside>
-        </div>
+        </main>
     );
 };

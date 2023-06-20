@@ -1,0 +1,13 @@
+.display__title {
+    margin-bottom: 0.5rem;
+    color: var(--main-color);
+    font-size: 0.8rem;
+}
+.display__title a {
+    text-decoration: underline;
+}
+.display__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
