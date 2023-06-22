@@ -1,0 +1,19 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.input-container,
+.submit-input-container {
+    display: flex;
+    flex-direction: column;
+}
+.input-container input {
+    background-color: whitesmoke;
+    padding: 0.5rem;
+}
+.submit-input-container input {
+    padding: 0.5rem 1rem;
+    color: white;
+    background-color: var(--main-color);
+}
