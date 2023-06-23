@@ -1,99 +1,44 @@
 import { ChangeEvent, useState } from "react";
-import { ProjectCreatorTaskCard } from "./ProjectCreatorTaskCard";
+
+import { projectTaskInitialValues } from "../../constants/initial-values";
+import { ProjectCreatorTaskCard } from "../cards/ProjectCreatorTaskCard";
+import { TasksCreatorForm } from "../forms/TasksCreatorForm";
+
 import styles from "./ProjectCreatorTasks.module.css";
-import { ProjectTaskModel } from "./ProjectPageModels";
 
 export const ProjectCreatorTasks = ({
-    isToastActive,
     toggleToast,
     projectTasks,
     setProjectTasks,
 }: {
-    isToastActive: boolean;
     toggleToast: Function;
-    projectTasks: ProjectTaskModel[];
-    setProjectTasks: Function;
+    projectTasks: IProjectTask[];
+    setProjectTasks: React.Dispatch<React.SetStateAction<IProjectTask[]>>;
 }) => {
-    let [taskTitle, setTaskTitle] = useState("");
-    let [taskPriority, setTaskPriority] = useState("Low");
-
-    function handleTaskInclusion() {
-        if (taskTitle) {
-            setProjectTasks([...projectTasks, createNewProjectTask()]);
-        } else {
-            !isToastActive && toggleToast(!isToastActive);
-        }
-    }
-
-    function createNewProjectTask(): ProjectTaskModel {
-        return {
-            taskCompleted: false,
-            taskTitle: taskTitle,
-            taskPriority: taskPriority,
-        };
-    }
-
-    function removeProjectTask(taskIndex: number) {
-        setProjectTasks(
-            projectTasks.filter((task, index) => {
-                if (index !== taskIndex) {
-                    return task;
-                }
-            })
-        );
-    }
-
     return (
-        <div className={styles["project-creator-tasks"]}>
-            <h3>Add Tasks</h3>
-            <div className={styles["creator-task-input"]}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Task title"
-                        value={taskTitle}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                            setTaskTitle(event.target.value);
-                        }}
-                    />
-                    <button
-                        className={styles["add-task-btn"]}
-                        onClick={() => {
-                            handleTaskInclusion();
-                        }}
-                    >
-                        Add
-                    </button>
-                </div>
-                <select
-                    onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                        setTaskPriority(event.target.value);
-                    }}
-                >
-                    <option value="Low">Low Priority</option>
-                    <option value="Medium">Medium Priority</option>
-                    <option value="High">High Priority</option>
-                </select>
+        <section className={styles["tasks-creator"]}>
+            <div className={styles["tasks-creator__title"]}>
+                <h3>Add Tasks</h3>
             </div>
-            <div className={styles["creator-tasks-preview"]}>
-                {projectTasks.map(
-                    (
-                        { taskTitle, taskPriority }: ProjectTaskModel,
-                        index: number
-                    ) => {
-                        return (
-                            <ProjectCreatorTaskCard
-                                taskTitle={taskTitle}
-                                taskPriority={taskPriority}
-                                taskCompleted
-                                removeProjectTask={removeProjectTask}
-                                key={index}
-                                index={index}
-                            />
-                        );
-                    }
-                )}
+            <div className={styles["tasks-creator__form-container"]}>
+                <TasksCreatorForm
+                    setTasks={setProjectTasks}
+                    tasks={projectTasks}
+                />
             </div>
-        </div>
+            <div className={styles["tasks-preview"]}>
+                {projectTasks.map((item, index) => {
+                    return (
+                        <ProjectCreatorTaskCard
+                            index={index}
+                            task={item}
+                            tasks={projectTasks}
+                            setProjectTasks={setProjectTasks}
+                            key={index}
+                        />
+                    );
+                })}
+            </div>
+        </section>
     );
 };

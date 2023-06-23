@@ -3,8 +3,8 @@ interface IUserSession extends IUser {
 }
 
 interface IUser {
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
     id: number;
 }
 

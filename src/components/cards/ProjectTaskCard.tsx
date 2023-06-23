@@ -1,23 +1,19 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import styles from "./ProjectTask.module.css";
+import styles from "./ProjectTaskCard.module.css";
 import { projectTaskInitialValues } from "../../constants/initial-values";
 import ProjectTaskService from "../../services/ProjectTaskService";
 
 export const ProjectTaskCard = ({ data }: { data: IProjectTask }) => {
     let [taskDetails, setTaskDetails] = useState(projectTaskInitialValues);
-    function handleCheckbox(event: ChangeEvent<HTMLInputElement>) {
-        setTaskDetails({ ...taskDetails, completed: !taskDetails.completed });
-        ProjectTaskService.update(taskDetails.id, taskDetails)
+
+    async function handleCheckbox(event: ChangeEvent<HTMLInputElement>) {
+        setTaskDetails({ ...taskDetails, completed:!taskDetails.completed });
+        await ProjectTaskService.update(taskDetails.id, { ...taskDetails, completed:!taskDetails.completed })
     }
 
-    async function update() {
-        await ProjectTaskService.get(data.id).then((data) => {
-            setTaskDetails(data);
-        });
-    }
     useEffect(() => {
-        update();
-    }, [data]);
+        ProjectTaskService.get(data.id).then(setTaskDetails);
+    }, [data.id]);
 
     return (
         <div className={styles["task-card"]}>
@@ -25,6 +21,7 @@ export const ProjectTaskCard = ({ data }: { data: IProjectTask }) => {
                 <div>
                     <input
                         type="checkbox"
+                        name="completed"
                         checked={taskDetails.completed}
                         onChange={handleCheckbox}
                     />

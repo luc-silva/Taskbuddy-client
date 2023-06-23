@@ -28,24 +28,16 @@
     gap: 1rem;
     margin-bottom: 1rem;
 }
-.project-creator-main > div {
+.project-creator-main form {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
-
-.project-creator-main > div > input,
-.project-creator-main > div > textarea {
-    background-color: whitesmoke;
-    padding: 0.5rem;
-    border-radius: 5px;
+.project-creator__footer{
+    position: absolute;
+    bottom: 0;
 }
-.project-creator-main > div > textarea{
-    height: 3rem;
-    resize: none;
-    overflow-y: scroll;
+.project-creator__footer button{
+    margin: 1rem;
+    padding: 0.5rem 1rem;
 }
-.project-creator-main > div > textarea:focus,
-.project-creator-main > div > input:focus{
-    outline: none;
-}
-

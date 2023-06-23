@@ -10,10 +10,10 @@ export const userSessionInitialValues: IUserSession = {
 };
 
 export const projectInitialValues: IProject = {
-    deadline: "",
+    deadline: "2023-06-15T00:00:00.000+00:00",
     description: "",
     id: 0,
-    priority: "",
+    priority: "LOW",
     projectTasks: [],
     title: "",
     user: { ...userInitialValues },
@@ -22,19 +22,20 @@ export const projectInitialValues: IProject = {
 export const projectTaskInitialValues: IProjectTask = {
     completed: false,
     id: 0,
-    priority: "",
+    priority: "LOW",
     title: "",
 };
 
 export const todoInitialValues: ITodo = {
     id: 0,
     concluded: false,
-    deadline: "",
-    priority: "",
+    deadline: "2023-06-15T00:00:00.000+00:00",
+    priority: "LOW",
     text: "",
     user: { ...userInitialValues },
 };
 
+//forms
 export const loginFormInitialValues: ILoginForm = {
     email: "",
     password: "",
@@ -45,3 +46,5 @@ export const registerFormInitialValues: IRegisterForm = {
     password: "",
     name: "",
 };
+
+export const selectOptions = ["LOW","MEDIUM","HIGH","URGENT",]

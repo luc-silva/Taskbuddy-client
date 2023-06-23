@@ -1,40 +1,15 @@
-.project-creator-tasks{
+.tasks-creator {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
-.creator-task-input{
-    display: flex;
-    justify-content: space-between;
+.tasks-creator__title {
 }
-.creator-task-input input,
-.creator-task-input select{
-    background-color: whitesmoke;
-    padding: 0.25rem;
-    border-radius: 5px;
+.tasks-creator__form-container {
 }
-.creator-task-input input:focus,
-.creator-task-input select:focus{
-    outline: none;
-}
-.creator-task-input > div{
-    display: flex;
-    gap: 1rem;
-}
-.add-task-btn{
-    background-color: var(--main-color);
-    padding: 0.25rem 0.75rem;
-    border-radius: 5px;
-    color: white;
-}
-.creator-tasks-preview{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1;
-    gap: 0.25rem;
-
-    height: 2rem;
-    margin-top: 1rem;
+.tasks-preview {
+    height: 9rem;
     overflow-y: scroll;
+    padding: 1rem;
+
 }

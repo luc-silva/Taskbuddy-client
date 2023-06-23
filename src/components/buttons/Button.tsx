@@ -1,7 +1,7 @@
 import { Plus } from "phosphor-react";
-import styles from "./AppAddButton.module.css";
+import styles from "./Button.module.css";
 
-export const AppAddButton = ({
+export const Button = ({
     text,
     toggleModal,
     isModalActive,

@@ -1,7 +1,9 @@
 .project {
     display: flex;
+    position: relative;
     flex-direction: column;
     box-sizing: border-box;
+    gap: 1rem;
 
     width: 100%;
     padding: 1rem;
@@ -35,6 +37,10 @@
 .about__extra {
     display: flex;
     flex-direction: row;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2rem;
     gap: 1.5rem;
 }
 .project__description,

@@ -7,7 +7,7 @@ import { ProjectAboutDisplay } from "../displays/ProjectAboutDisplay";
 
 import styles from "./ProjectCard.module.css";
 
-export const ProjectCard = ({ id }: { id: number }) => {
+export const ProjectCard = ({ id, handleDelete }: { id: number, handleDelete:Function }) => {
     let [project, setProject] = useState(projectInitialValues);
 
     function getCompletedTasksTotal() {
@@ -16,11 +16,7 @@ export const ProjectCard = ({ id }: { id: number }) => {
             if (task.completed) return task;
         }).length;
     }
-    function handleDeleteBtn() {
-        ProjectService.delete(id).then((data: IMessageResponse) => {
-            console.log(data.message);
-        });
-    }
+    
 
     useEffect(() => {
         ProjectService.get(id).then((data) => {
@@ -44,7 +40,9 @@ export const ProjectCard = ({ id }: { id: number }) => {
                     <div className={styles["about__extra"]}>
                         <ProjectAboutDisplay
                             data={project}
-                            handleDelete={handleDeleteBtn}
+                            handleDelete={() => {
+                                handleDelete(project.id)
+                            }}
                         />
                     </div>
                 </div>

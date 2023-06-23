@@ -1,66 +1,52 @@
 import { ChangeEvent, useState } from "react";
-import { AppCloseButton } from "../buttons/AppCloseButton";
-import { User } from "../../userData";
 
 import { ProjectCreatorTasks } from "../ProjectsPage/ProjectCreatorTasks";
-import { AppButtonPanel } from "../panels/AppButtonPanel";
+import { projectInitialValues } from "../../constants/initial-values";
+import { ProjectCreatorForm } from "../forms/ProjectCreatorForm";
+
 import styles from "./ProjectCreatorModal.module.css";
+import ProjectService from "../../services/ProjectService";
 
 export const ProjectCreatorModal = ({
     isToastActive,
     toggleToast,
     user,
-    modifyUser,
     isActive,
     toggleModal,
 }: {
     isToastActive: boolean;
     toggleToast: Function;
-    user: User;
-    modifyUser: Function;
+    user: IUserSession;
     isActive: boolean;
     toggleModal: Function;
 }) => {
-    let [projectTitle, setProjectTitle] = useState("");
-    let [projectDescription, setProjectDescription] = useState("");
-    let [projectDeadline, setProjectDeadline] = useState("2023-02-09");
-    let [projectTasks, setProjectTasks] = useState([]);
+    let [project, setProject] = useState(projectInitialValues);
+    let [tasks, setTasks] = useState([] as IProjectTask[]);
 
-    function handleProjectInclusion() {
-        if (projectTitle && projectTasks.length > 0) {
-            modifyUser({
-                ...user,
-                projectList: [...user.projectList, createNewProject()],
-            });
-            clearModal()
-            toggleModal(!isActive);
-        } else {
-            !isToastActive && toggleToast(!isToastActive);
-        }
+    function closeModal() {
+        toggleModal(!isActive);
     }
-    function createNewProject(): IProject {
-        return {
-            title,
-            deadline: `${new Date(projectDeadline)}`,
-            description: projectDescription
-                ? projectDescription
-                : "None provided",
-            projectTasks,
+
+    async function handleSubmit() {
+        let projectData = {
+            ...project,
+            user: { id: user.id },
+            projectTasks: tasks,
         };
+
+        await ProjectService.create(projectData).then((data) => {
+            console.log(data)
+            setProject(projectInitialValues)
+            setTasks([])
+            closeModal()
+        });
     }
-    function clearModal(){
-        setProjectDeadline("2023-02-09")
-        setProjectDescription("")
-        setProjectTitle("")
-        setProjectTasks([])
-    }
+
     if (!isActive) return null;
     return (
         <div
             className={styles["project-creator-background"]}
-            onClick={() => {
-                toggleModal(!isActive);
-            }}
+            onClick={closeModal}
         >
             <div
                 className={styles["project-creator"]}
@@ -68,54 +54,22 @@ export const ProjectCreatorModal = ({
                     e.stopPropagation();
                 }}
             >
-                <AppCloseButton isActive={isActive} toggleModal={toggleModal} />
-                <h3>Create a new project</h3>
-                <div className={styles["project-creator-main"]}>
-                    <div>
-                        Project Title
-                        <input
-                            type="text"
-                            value={projectTitle}
-                            onChange={(
-                                event: ChangeEvent<HTMLInputElement>
-                            ) => {
-                                setProjectTitle(event.target.value);
-                            }}
-                        />
-                    </div>
-                    <div>
-                        Deadline
-                        <input
-                            type="date"
-                            value={projectDeadline}
-                            onChange={(event: ChangeEvent<HTMLDataElement>) => {
-                                setProjectDeadline(event.target.value);
-                            }}
-                        />
-                    </div>
-                    <div>
-                        Description
-                        <textarea
-                            value={projectDescription}
-                            onChange={(
-                                event: ChangeEvent<HTMLTextAreaElement>
-                            ) => {
-                                setProjectDescription(event.target.value);
-                            }}
-                        />
-                    </div>
+                <div className={styles["project-creator__title"]}>
+                    <h3>Create a new project</h3>
                 </div>
-                <ProjectCreatorTasks
-                    isToastActive={isToastActive}
-                    toggleToast={toggleToast}
-                    projectTasks={projectTasks}
-                    setProjectTasks={setProjectTasks}
-                />
-                <AppButtonPanel
-                    handleFunc={handleProjectInclusion}
-                    isActive={isActive}
-                    toggleModal={toggleModal}
-                />
+                <section className={styles["project-creator-main"]}>
+                    <ProjectCreatorForm form={project} setForm={setProject} />
+                </section>
+                <section>
+                    <ProjectCreatorTasks
+                        setProjectTasks={setTasks}
+                        projectTasks={tasks}
+                        toggleToast={toggleToast}
+                    />
+                </section>
+                <div className={styles["project-creator__footer"]}>
+                    <button onClick={handleSubmit}> Create Project</button>
+                </div>
             </div>
         </div>
     );

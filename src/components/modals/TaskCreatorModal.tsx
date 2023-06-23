@@ -1,54 +1,33 @@
-import { setPriority } from "os";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { AppButtonPanel } from "../buttons/AppButtonPanel";
-import { AppCloseButton } from "../buttons/AppCloseButton";
+import TodoService from "../../services/TodoService";
+
+import { ChangeEvent, useState } from "react";
+import { DateInput, SelectInput, TextInput } from "inputify/dist";
+import { selectOptions, todoInitialValues } from "../../constants/initial-values";
 import styles from "./TaskCreatorModal.module.css";
-import { TaskModel } from "./TaskModel";
+
 
 export const TaskCreatorModal = ({
     isToastActive,
     toggleToast,
-    user,
-    modifyUser,
     toggleModal,
     isActive,
 }: {
     isToastActive: boolean;
     toggleToast: Function;
-    user: any;
-    modifyUser: Function;
     toggleModal: Function;
     isActive: boolean;
 }) => {
-    let [taskTitle, setTaskTitle] = useState("");
-    let [taskDeadline, setTaskDeadline] = useState("2023-02-09");
-    let [taskPriority, setTaskPriority] = useState("Low Priority");
+    let [taskForm, setTaskForm] = useState(todoInitialValues);
 
-    function handleTaskCreator() {
-        if (taskTitle) {
-            modifyUser({
-                ...user,
-                todoList: [...user.todoList, createTask()],
-            });
-            clearModal();
-            toggleModal(!isActive);
-        } else {
-            !isToastActive && toggleToast(!isToastActive);
-        }
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
+        let target = event.target;
+        setTaskForm({ ...taskForm, [target.name]: target.value });
     }
-    function createTask() {
-        return {
-            taskTitle,
-            taskDeadline: new Date(taskDeadline),
-            taskConcluded: false,
-            taskPriority: taskPriority,
-        };
+
+    function handleSubmit(event:SubmitEvent) {
+        TodoService.create(1, taskForm)
     }
-    function clearModal() {
-        setTaskDeadline("2023-02-09");
-        setTaskPriority("Low Priority");
-        setTaskTitle("");
-    }
+
     if (!isActive) return null;
     return (
         <div
@@ -63,60 +42,46 @@ export const TaskCreatorModal = ({
                     event.stopPropagation();
                 }}
             >
-                <AppCloseButton toggleModal={toggleModal} isActive={isActive} />
 
                 <div className={styles["input-container"]}>
                     <div className={styles["input-div"]}>
-                        Task
-                        <input
-                            type="text"
-                            maxLength={20}
-                            value={taskTitle}
-                            onChange={(event) => {
-                                setTaskTitle(event.target.value);
-                            }}
+                        <TextInput
+                            inputName="text"
+                            stateValue={taskForm.text}
+                            label
+                            labelText="Title"
+                            placeholder
+                            placeholderText="Do something..."
+                            maxLength={50}
+                            required
+                            onChange={handleChange}
                         />
                     </div>
 
                     <div className={styles["input-div"]}>
-                        Deadline
-                        <input
-                            type="date"
-                            value={taskDeadline}
-                            onChange={(event) => {
-                                setTaskDeadline(event.target.value);
-                            }}
+                        <DateInput
+                            inputName="deadline"
+                            onChange={handleChange}
+                            stateValue={taskForm.deadline}
+                            label
+                            labelText="Deadline"
+                            required
                         />
                     </div>
 
                     <div className={styles["input-div"]}>
-                        Priority
-                        <select
-                            value={taskPriority}
-                            onChange={(
-                                event: ChangeEvent<HTMLSelectElement>
-                            ) => {
-                                setTaskPriority(event.target.value);
-                            }}
-                        >
-                            <option value="Low Priority">Low Priority</option>
-                            <option value="Medium Priority">
-                                Medium Priority
-                            </option>
-                            <option value="High Priority">High Priority</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="You should do it NOW!">
-                                You should do it NOW!
-                            </option>
-                        </select>
+                        <SelectInput
+                            inputName="priority"
+                            onChange={handleChange}
+                            label
+                            labelText="Priority"
+                            required
+                            stateValue={""}
+                            options={selectOptions}
+                        />
                     </div>
                 </div>
 
-                <AppButtonPanel
-                    handleFunc={handleTaskCreator}
-                    toggleModal={toggleModal}
-                    isActive={isActive}
-                />
             </div>
         </div>
     );

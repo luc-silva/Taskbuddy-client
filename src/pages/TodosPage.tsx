@@ -1,50 +1,52 @@
-import { AppAddButton } from "../components/buttons/AppAddButton";
-import { TaskModel } from "../components/TodosPage/TaskModel";
-import { TodoCard } from "../components/TodosPage/TodoCard";
-import { User } from "../userData";
+import UserService from "../services/UserService";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Button } from "../components/buttons/Button";
+import { TodoCard } from "../components/cards/TodoCard";
 
 import styles from "./TodosPage.module.css";
 
 export const TodosPage = ({
     user,
-    modifyUser,
     toggleTaskCreator,
     isTaskCreatorActive,
-    tasks,
 }: {
-    user: User;
-    modifyUser: Function;
+    user: IUserSession;
     toggleTaskCreator: Function;
     isTaskCreatorActive: boolean;
-    tasks: TaskModel[];
 }) => {
+    let [todos, setTodos] = useState([] as ITodo[]);
+    const navigate = useNavigate();
+
+    async function updateTodos() {
+        await UserService.listUserTodos(user.id).then((data) => {
+            setTodos(data);
+        });
+    }
+
+    useEffect(() => {
+        updateTodos();
+    }, [user.id]);
+    useEffect(() => {
+        if (!user.isLogged) {
+            navigate("/login");
+        }
+    }, [user]);
+
     return (
         <div className={styles["todos-page"]}>
             <div className={styles["tasks-button-panel"]}>
-                <AppAddButton
+                <Button
                     text="Add Task"
                     toggleModal={toggleTaskCreator}
                     isModalActive={isTaskCreatorActive}
                 />
             </div>
             <div className={styles["tasks-container"]}>
-                {tasks.map(
-                    (
-                        { taskConcluded, taskTitle, taskDeadline,taskPriority }: TaskModel,
-                        index: number
-                    ) => (
-                        <TodoCard
-                            user={user}
-                            modifyUser={modifyUser}
-                            taskPriority={taskPriority}
-                            taskConcluded={taskConcluded}
-                            taskTitle={taskTitle}
-                            taskDeadline={taskDeadline}
-                            index={index}
-                            key={index}
-                        />
-                    )
-                )}
+                {todos.map(({ id }: ITodo, index: number) => (
+                    <TodoCard updateTodos={updateTodos} id={id} key={index} />
+                ))}
             </div>
         </div>
     );

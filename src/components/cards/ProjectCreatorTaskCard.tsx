@@ -2,24 +2,28 @@ import { Trash } from "phosphor-react";
 
 import styles from "./ProjectCreatorTaskCard.module.css";
 
-export const ProjectCreatorTaskCard = ({ 
-    task,
+export const ProjectCreatorTaskCard = ({
     index,
-    setProjectTask,
+    task,
+    tasks,
+    setProjectTasks,
 }: {
-    task:IProjectTask
-    index:number
-    setProjectTask: Function;
+    index: number;
+    task: IProjectTask;
+    tasks: IProjectTask[];
+    setProjectTasks: React.Dispatch<React.SetStateAction<IProjectTask[]>>;
 }) => {
-    function removeTask() {}
+    function removeTask() {
+        setProjectTasks(tasks.filter((_, taskIndex) => taskIndex !== index));
+    }
     return (
         <div className={styles["task-card"]}>
             <div className={styles["card-maininfo"]}>
                 <strong>{task.title}</strong>
-                <span>{task.priority} Priority</span>
+                <span>Priority: {task.priority} </span>
             </div>
             <div className={styles["card-icons"]} onClick={removeTask}>
-                <Trash size={24} />
+                <Trash size={20} />
             </div>
         </div>
     );

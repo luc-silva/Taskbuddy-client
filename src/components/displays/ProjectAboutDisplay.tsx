@@ -25,14 +25,16 @@ export const ProjectAboutDisplay = ({
                 Status:
                 <strong>{setProjectStatus()}</strong>
             </div>
-            <Trash
-                size={30}
-                color="red"
-                weight="regular"
-                onClick={() => {
-                    handleDelete();
-                }}
-            />
+            <div>
+                <Trash
+                    size={30}
+                    color="red"
+                    weight="regular"
+                    onClick={() => {
+                        handleDelete();
+                    }}
+                />
+            </div>
         </>
     );
 };

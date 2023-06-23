@@ -8,8 +8,9 @@
     display: flex;
     flex-direction: column;
 }
-.input-container input {
+.input-container input, .input-container textarea {
     background-color: whitesmoke;
+    resize: none;
     padding: 0.5rem;
 }
 .submit-input-container input {

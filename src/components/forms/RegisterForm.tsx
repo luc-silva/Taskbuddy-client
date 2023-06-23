@@ -1,4 +1,4 @@
-import { TextInput } from "inputify/dist";
+import { PasswordInput, TextInput } from "inputify/dist";
 import { ChangeEvent, FormEventHandler } from "react";
 import styles from "./Form.module.css";
 
@@ -30,6 +30,7 @@ export const RegisterForm = ({
                         onChange={handleChange}
                         inputType="text"
                         stateValue={form.name}
+                        maxLength={40}
                         required
                     />
                 </div>
@@ -43,19 +44,20 @@ export const RegisterForm = ({
                         inputType="email"
                         onChange={handleChange}
                         stateValue={form.email}
+                        maxLength={100}
                         required
                     />
                 </div>
                 <div className={styles["input-container"]}>
-                    <TextInput
+                    <PasswordInput
                         inputName="password"
                         label
                         labelText="Password"
                         placeholder
                         placeholderText="123"
                         onChange={handleChange}
-                        inputType="text"
                         stateValue={form.password}
+                        maxLength={40}
                         required
                     />
                 </div>

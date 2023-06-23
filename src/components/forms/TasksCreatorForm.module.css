@@ -1,0 +1,29 @@
+.tasks-creator__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+.form-container input, .form-container select {
+    padding: 0.25rem;
+    background-color: whitesmoke;
+}
+.form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 85%;
+}
+.submit-input-container {
+    width: 15%;
+} 
+.submit-input-container input{
+    cursor: pointer;
+    padding: 0.25rem;
+}
