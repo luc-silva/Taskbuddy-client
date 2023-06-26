@@ -4,7 +4,7 @@ import { Service } from "./Service";
 class TodoService extends Service {
     public async get(id: number): Promise<ITodo> {
         return await axios
-            .get(`${this.base_url}/todo/${id}`)
+            .get(`${this.base_url}todo/${id}`)
             .then(({ data }) => {
                 return data;
             });
@@ -12,7 +12,7 @@ class TodoService extends Service {
 
     public async delete(id: number): Promise<IMessageResponse> {
         return await axios
-            .delete(`${this.base_url}/todo/${id}`)
+            .delete(`${this.base_url}todo/${id}`)
             .then(({ data }) => {
                 return data;
             });
@@ -20,7 +20,7 @@ class TodoService extends Service {
 
     public async create(id: number, data: ITodo): Promise<ITodo> {
         return await axios
-            .post(`${this.base_url}/todo/${id}`, data)
+            .post(`${this.base_url}todo/`, {...data, id:undefined ,user:{id}})
             .then(({ data }) => {
                 return data;
             });
@@ -28,7 +28,7 @@ class TodoService extends Service {
 
     public async update(id: number, data: ITodo): Promise<ITodo> {
         return await axios
-            .put(`${this.base_url}/todo/${id}`, data)
+            .put(`${this.base_url}todo/${id}`, data)
             .then(({ data }) => {
                 return data;
             });

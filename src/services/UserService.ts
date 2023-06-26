@@ -36,7 +36,7 @@ class UserService extends Service {
 
     public async listUserTodos(id: number): Promise<ITodo[]> {
         return await axios
-            .get(`${this.base_url}user/${id}/todo`)
+            .get(`${this.base_url}user/${id}/todos`)
             .then(({ data }) => {
                 return data;
             });

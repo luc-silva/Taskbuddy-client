@@ -1,13 +1,13 @@
 import UserService from "../services/UserService";
+import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 import { LoginForm } from "../components/forms/LoginForm";
 import { HeroText } from "../components/misc/HeroText";
 import { loginFormInitialValues } from "../constants/initial-values";
+import { FooterText } from "../components/misc/FooterText";
 
 import styles from "./Login.module.css";
-import { FooterText } from "../components/misc/FooterText";
-import { useNavigate } from "react-router-dom";
 
 export const Login = ({ setUser }: { setUser: Function }) => {
     let [userForm, setUserForm] = useState(loginFormInitialValues);
@@ -28,7 +28,7 @@ export const Login = ({ setUser }: { setUser: Function }) => {
                     <HeroText />
                 </div>
                 <div className={styles["login__form-container"]}>
-                    <div className={styles["form-container"]}>
+                    <div className={styles["form-container__title"]}>
                         <h2>Log in</h2>
                     </div>
                     <div className={styles["form-container__form"]}>
@@ -37,6 +37,9 @@ export const Login = ({ setUser }: { setUser: Function }) => {
                             setForm={setUserForm}
                             onSubmit={handleSubmit}
                         />
+                    </div>
+                    <div className={styles["form-container__link"]}>
+                        <Link to="/register">Create Account</Link>
                     </div>
                 </div>
             </section>

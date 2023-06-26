@@ -40,12 +40,20 @@
     padding: 2rem;
     background-color: white;
 }
-.form-container h2 {
+.form-container__title h2 {
     font-size: 1.5rem;
 }
 .form-container__form {
     display: flex;
     flex-direction: column;
+}
+.form-container__link {
+    width: 100%;
+    text-align: center;
+}
+.form-container__link a {
+    font-size: 0.8rem;
+    color: var(--main-color);
 }
 .login__footer {
     background-color: whitesmoke;

@@ -46,3 +46,14 @@
 .input-div > input:focus, .input-div > select:focus{
     outline: none;
 }
+.submit-input-div{
+    bottom: 0;
+    margin-bottom: 2rem;
+    position: absolute;
+}
+.submit-input-div input{
+    padding: 0.25rem 1rem ;
+    color: white;
+    cursor: pointer;
+    background-color: var(--main-color);
+}

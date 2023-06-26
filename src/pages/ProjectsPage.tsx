@@ -23,7 +23,7 @@ export const ProjectPage = ({
     function handleDelete(id: number) {
         ProjectService.delete(id).then((data: IMessageResponse) => {
             console.log(data.message);
-            listProjects()
+            listProjects();
         });
     }
 
@@ -35,7 +35,7 @@ export const ProjectPage = ({
 
     useEffect(() => {
         if (user.id) {
-            listProjects()
+            listProjects();
         }
     }, []);
     useEffect(() => {
@@ -53,9 +53,15 @@ export const ProjectPage = ({
                 />
             </div>
             <div className={styles["projects__container"]}>
-                {projects.length === 0 && <p>You dont have a project yet.</p>}
+                {projects.length === 0 && <p>You dont have any project yet.</p>}
                 {projects.map(({ id }: IProject, index: number) => {
-                    return <ProjectCard handleDelete={handleDelete} id={id} key={index} />;
+                    return (
+                        <ProjectCard
+                            handleDelete={handleDelete}
+                            id={id}
+                            key={index}
+                        />
+                    );
                 })}
             </div>
         </div>

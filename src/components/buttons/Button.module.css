@@ -5,8 +5,9 @@
     gap: 0.5rem;
 
     padding-bottom: 0.25rem;
-    border-bottom: 3px solid var(--main-color);
     cursor: pointer;
+    border-bottom: 3px solid var(--main-color);
+    background-color: white;
 }
 /* .btn-text{
     

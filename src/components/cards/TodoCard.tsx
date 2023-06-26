@@ -1,9 +1,9 @@
 import { Trash } from "phosphor-react";
-import { format } from "date-fns";
-import styles from "./TodoCard.module.css";
-import { useEffect, useState } from "react";
 import TodoService from "../../services/TodoService";
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
 import { todoInitialValues } from "../../constants/initial-values";
+import styles from "./TodoCard.module.css";
 
 export const TodoCard = ({
     id,
@@ -13,6 +13,7 @@ export const TodoCard = ({
     updateTodos: Function;
 }) => {
     let [todo, setTodo] = useState(todoInitialValues);
+    let [concluded, toggleConcluded] = useState(false);
 
     async function handleDelete() {
         await TodoService.delete(id).then((data) => {
@@ -21,10 +22,9 @@ export const TodoCard = ({
         });
     }
     async function handleCheckbox() {
-        await TodoService.update(id, {
-            ...todo,
-            concluded: !todo.concluded,
-        }).then(() => {
+        let data = { ...todo, concluded: !todo.concluded }
+        setTodo(data);
+        await TodoService.update(id, data).then(() => {
             updateCard();
         });
     }
@@ -62,12 +62,12 @@ export const TodoCard = ({
                     <span>{format(new Date(todo.deadline), "MM/dd/yyyy")}</span>
                 </div>
                 <div className={styles["todo__btn-panel"]}>
-                    <button
+                    <div
                         className={styles["delete-btn"]}
                         onClick={handleDelete}
                     >
                         <Trash size={30} color="red" weight="regular" />
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>

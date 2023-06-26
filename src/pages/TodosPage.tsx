@@ -28,6 +28,7 @@ export const TodosPage = ({
     useEffect(() => {
         updateTodos();
     }, [user.id]);
+
     useEffect(() => {
         if (!user.isLogged) {
             navigate("/login");
@@ -44,6 +45,7 @@ export const TodosPage = ({
                 />
             </div>
             <div className={styles["tasks-container"]}>
+                {todos.length === 0 && <p>You dont have any todos yet.</p>}
                 {todos.map(({ id }: ITodo, index: number) => (
                     <TodoCard updateTodos={updateTodos} id={id} key={index} />
                 ))}

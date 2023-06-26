@@ -1,32 +1,52 @@
-import { Flag, Gauge, List, ListChecks, CaretDoubleLeft } from "phosphor-react";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { userInitialValues } from "../../constants/initial-values";
+import {
+    Flag,
+    Gauge,
+    List,
+    ListChecks,
+    CaretDoubleLeft,
+    SignOut,
+} from "phosphor-react";
 
 import styles from "./SideNavbar.module.css";
 
-export const SideNavbar = () => {
-    let [navActive, toggleNav] = useState(false);
-    let [navWidth, setNavWidth] = useState("5vw");
+export const SideNavbar = ({ setUser }: { setUser: Function }) => {
+    let path = useLocation();
+    let navigate = useNavigate();
+
+    let [isActive, toggleNav] = useState(false);
+    let [isFocused, toggleFocus] = useState(false);
+
+    function logOut() {
+        setUser({ ...userInitialValues });
+        navigate("/login")
+    }
 
     useEffect(() => {
-        if (navActive) {
-            setNavWidth("10vw");
+        if (path.pathname === "/login") {
+            toggleNav(false);
         } else {
-            setNavWidth("5vw");
+            toggleNav(true);
         }
-    }, [navActive, navWidth]);
 
+    }, [path.pathname]);
+
+    if (!isActive) return null;
     return (
         <nav
-            style={{ width: navWidth }}
-            className={ navActive ? styles["side-navbar"] : styles["closed-side-navbar"]}
+            className={
+                isFocused ? styles["side-navbar"] : styles["closed-side-navbar"]
+            }
         >
-            {(navActive && (
+            {/* open/close navbar btn */}
+            {(isFocused && (
                 <CaretDoubleLeft
                     className={styles["navbar-btn-icon"]}
                     size={24}
                     onClick={() => {
-                        toggleNav(!navActive);
+                        toggleFocus(!isFocused);
                     }}
                 />
             )) || (
@@ -34,11 +54,12 @@ export const SideNavbar = () => {
                     className={styles["navbar-btn-icon"]}
                     size={24}
                     onClick={() => {
-                        toggleNav(!navActive);
+                        toggleFocus(!isFocused);
                     }}
                 />
             )}
 
+            {/* other links */}
             <ul>
                 <li>
                     <NavLink
@@ -51,7 +72,7 @@ export const SideNavbar = () => {
                             className={styles["navbar-btn-icon"]}
                             size={24}
                         />
-                        {navActive && <span>Dashboard</span>}
+                        {isFocused && <span>Dashboard</span>}
                     </NavLink>
                 </li>
 
@@ -63,7 +84,7 @@ export const SideNavbar = () => {
                         to="/projects"
                     >
                         <Flag className={styles["navbar-btn-icon"]} size={24} />
-                        {navActive && <span>Projects</span>}
+                        {isFocused && <span>Projects</span>}
                     </NavLink>
                 </li>
 
@@ -78,13 +99,16 @@ export const SideNavbar = () => {
                             className={styles["navbar-btn-icon"]}
                             size={24}
                         />
-                        {navActive && <span>To-do</span>}
+                        {isFocused && <span>To-do</span>}
                     </NavLink>
                 </li>
-
-                {/* mostrar titulo dos 3 principais projetos, mostra porcentagem */}
-                {/* todo dessa semana, proximo mes, ano q vem */}
             </ul>
+            <div className={styles["log-out__container"]}>
+                <button onClick={logOut} className={styles["log-out__btn"]}>
+                    {isFocused && <p> Log out </p>}
+                    <SignOut size={24} />
+                </button>
+            </div>
         </nav>
     );
 };
