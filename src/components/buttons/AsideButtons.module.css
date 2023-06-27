@@ -1,0 +1,21 @@
+.navbar-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    gap: 0.25rem;
+}
+.navbar-btn svg{
+    object-fit: contain;
+}
+.navbar-btn p{
+    font-size: 0.9rem;
+}
+.active-tab-detail{
+    position: absolute;
+    z-index: 3;
+    left: -16px;
+    height:  100%;
+    width: 5px;
+    background-color: var(--main-color);
+}

@@ -11,6 +11,9 @@ import {
 } from "phosphor-react";
 
 import styles from "./SideNavbar.module.css";
+import { DashboardLinkButton } from "../buttons/DashboardLinkButton";
+import { ProjectLinkButton } from "../buttons/ProjectLinkButton";
+import { TodoLinkButton } from "../buttons/TodoLinkButton";
 
 export const SideNavbar = ({ setUser }: { setUser: Function }) => {
     let path = useLocation();
@@ -21,7 +24,13 @@ export const SideNavbar = ({ setUser }: { setUser: Function }) => {
 
     function logOut() {
         setUser({ ...userInitialValues });
-        navigate("/login")
+        navigate("/login");
+    }
+
+    function getClass(condition: boolean) {
+        return condition
+            ? [styles["navbar"], styles["navbar--open"]].join(" ")
+            : styles["navbar"];
     }
 
     useEffect(() => {
@@ -30,77 +39,43 @@ export const SideNavbar = ({ setUser }: { setUser: Function }) => {
         } else {
             toggleNav(true);
         }
-
     }, [path.pathname]);
 
     if (!isActive) return null;
     return (
-        <nav
-            className={
-                isFocused ? styles["side-navbar"] : styles["closed-side-navbar"]
-            }
-        >
+        <nav className={getClass(isFocused)}>
             {/* open/close navbar btn */}
-            {(isFocused && (
-                <CaretDoubleLeft
-                    className={styles["navbar-btn-icon"]}
-                    size={24}
-                    onClick={() => {
-                        toggleFocus(!isFocused);
-                    }}
-                />
-            )) || (
-                <List
-                    className={styles["navbar-btn-icon"]}
-                    size={24}
-                    onClick={() => {
-                        toggleFocus(!isFocused);
-                    }}
-                />
-            )}
+            <div className={styles["main-btn__container"]}>
+                {(isFocused && (
+                    <CaretDoubleLeft
+                        className={styles["navbar-btn-icon"]}
+                        size={24}
+                        onClick={() => {
+                            toggleFocus(!isFocused);
+                        }}
+                    />
+                )) || (
+                    <List
+                        className={styles["navbar-btn-icon"]}
+                        size={24}
+                        onClick={() => {
+                            toggleFocus(!isFocused);
+                        }}
+                    />
+                )}
+            </div>
 
             {/* other links */}
-            <ul>
+            <ul className={styles["pages__link__container"]}>
                 <li>
-                    <NavLink
-                        className={({ isActive }) =>
-                            isActive ? styles["navbar-btn-active"] : undefined
-                        }
-                        to="/dashboard"
-                    >
-                        <Gauge
-                            className={styles["navbar-btn-icon"]}
-                            size={24}
-                        />
-                        {isFocused && <span>Dashboard</span>}
-                    </NavLink>
+                    <DashboardLinkButton isMenuFocused={isFocused} />
                 </li>
 
                 <li>
-                    <NavLink
-                        className={({ isActive }) =>
-                            isActive ? styles["navbar-btn-active"] : undefined
-                        }
-                        to="/projects"
-                    >
-                        <Flag className={styles["navbar-btn-icon"]} size={24} />
-                        {isFocused && <span>Projects</span>}
-                    </NavLink>
+                    <ProjectLinkButton isMenuFocused={isFocused} />
                 </li>
-
                 <li>
-                    <NavLink
-                        className={({ isActive }) =>
-                            isActive ? styles["navbar-btn-active"] : undefined
-                        }
-                        to="/tasks"
-                    >
-                        <ListChecks
-                            className={styles["navbar-btn-icon"]}
-                            size={24}
-                        />
-                        {isFocused && <span>To-do</span>}
-                    </NavLink>
+                    <TodoLinkButton isMenuFocused={isFocused} />
                 </li>
             </ul>
             <div className={styles["log-out__container"]}>
