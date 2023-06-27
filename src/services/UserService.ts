@@ -15,7 +15,7 @@ class UserService extends Service {
             .post(`${this.base_url}user/login`, data)
             .then(({ data }: { data: IUser }) => {
                 return data;
-            });
+            })
     }
 
     public async create(data: IRegisterForm): Promise<IMessageResponse> {

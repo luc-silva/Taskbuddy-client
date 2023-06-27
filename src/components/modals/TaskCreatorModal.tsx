@@ -1,29 +1,33 @@
 import TodoService from "../../services/TodoService";
-
-import { ChangeEvent, FormEvent, useState } from "react";
-import { DateInput, SelectInput, TextInput } from "inputify/dist";
 import {
     selectOptions,
     todoInitialValues,
 } from "../../constants/initial-values";
+import { AxiosError } from "axios";
+import { extractErrorMessage } from "../../utils/tools";
+
+import { ChangeEvent, FormEvent, useState } from "react";
+import { DateInput, SelectInput, TextInput } from "inputify/dist";
+
 import styles from "./TaskCreatorModal.module.css";
+import { useOutletContext } from "react-router-dom";
 
 export const TaskCreatorModal = ({
     user,
-    isToastActive,
     toggleToast,
     toggleModal,
     isActive,
 }: {
     user: IUserSession;
-    isToastActive: boolean;
     toggleToast: Function;
     toggleModal: Function;
     isActive: boolean;
 }) => {
     let [taskForm, setTaskForm] = useState(todoInitialValues);
+    let update: Function = useOutletContext();
 
     function closeModal() {
+        setTaskForm(todoInitialValues)
         toggleModal(!isActive);
     }
 
@@ -34,7 +38,15 @@ export const TaskCreatorModal = ({
 
     async function handleSubmit(event: FormEvent) {
         event.preventDefault();
-        await TodoService.create(user.id, taskForm).then(closeModal);
+        await TodoService.create(user.id, taskForm)
+            .then((data) => {
+                toggleToast(data.message);
+                closeModal();
+            })
+            .catch((response: AxiosError<IErrorMessageResponse>) => {
+                toggleToast(extractErrorMessage(response), 400);
+            });
+        update();
     }
 
     if (!isActive) return null;

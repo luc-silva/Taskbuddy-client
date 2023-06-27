@@ -1,6 +1,8 @@
 import UserService from "../services/UserService";
+import { AxiosError } from "axios";
+import { extractErrorMessage } from "../utils/tools";
 import { FormEvent, useState } from "react";
-import { registerFormInitialValues, } from "../constants/initial-values";
+import { registerFormInitialValues } from "../constants/initial-values";
 
 import { HeroText } from "../components/misc/HeroText";
 import { RegisterForm } from "../components/forms/RegisterForm";
@@ -9,16 +11,24 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./Register.module.css";
 
-export const Register = () => {
+export const Register = ({
+    toggleToast,
+}: {
+    toggleToast: toggleToastCallback;
+}) => {
     let [dataForm, setDataForm] = useState(registerFormInitialValues);
-    let navigate = useNavigate()
+    let navigate = useNavigate();
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        UserService.create(dataForm).then((data:IMessageResponse) => {
-            navigate("/login")
-        })
+        UserService.create(dataForm)
+            .then((data: IMessageResponse) => {
+                navigate("/login");
+            })
+            .catch((response: AxiosError<IErrorMessageResponse>) => {
+                toggleToast(extractErrorMessage(response), 400)
+            });
     }
     return (
         <main className={styles["register"]}>
@@ -31,12 +41,16 @@ export const Register = () => {
                         <h2>Create Account</h2>
                     </div>
                     <div className={styles["form-container__form"]}>
-                        <RegisterForm form={dataForm} setForm={setDataForm} onSubmit={handleSubmit}/>
+                        <RegisterForm
+                            form={dataForm}
+                            setForm={setDataForm}
+                            onSubmit={handleSubmit}
+                        />
                     </div>
                 </div>
             </section>
             <div className={styles["register__footer"]}>
-                <FooterText/>
+                <FooterText />
             </div>
         </main>
     );

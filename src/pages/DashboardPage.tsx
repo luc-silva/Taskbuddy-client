@@ -1,12 +1,19 @@
+import { useEffect } from "react";
 import { GreetingsDisplay } from "../components/displays/GreetingsDisplay";
 import { ImportantTasksDisplay } from "../components/displays/ImportantTasksDisplay";
 import { UserStatusDisplay } from "../components/displays/UserStatusDisplay";
 import { ExternalLinks } from "../components/misc/ExternalLinks";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./DashboardPage.module.css";
 
-export const DashboardPage = ({ user }: { user: IUser }) => {
-    //get concluded projects and todos
+export const DashboardPage = ({ user }: { user: IUserSession }) => {
+    const navigate = useNavigate()
+    useEffect(() => {
+        if(!user.isLogged){
+            navigate("/login")
+        }
+    }, [user])
     return (
         <main className={styles["dashboard"]}>
             <section className={styles["dashboard__main"]}>

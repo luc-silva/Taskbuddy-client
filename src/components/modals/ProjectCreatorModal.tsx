@@ -1,20 +1,21 @@
-import { ChangeEvent, useState } from "react";
+import ProjectService from "../../services/ProjectService";
+import { AxiosError } from "axios";
+import { extractErrorMessage } from "../../utils/tools";
+import {  useState } from "react";
 
 import { ProjectCreatorTasks } from "../ProjectsPage/ProjectCreatorTasks";
 import { projectInitialValues } from "../../constants/initial-values";
 import { ProjectCreatorForm } from "../forms/ProjectCreatorForm";
 
 import styles from "./ProjectCreatorModal.module.css";
-import ProjectService from "../../services/ProjectService";
+import { useOutletContext } from "react-router-dom";
 
 export const ProjectCreatorModal = ({
-    isToastActive,
     toggleToast,
     user,
     isActive,
     toggleModal,
 }: {
-    isToastActive: boolean;
     toggleToast: Function;
     user: IUserSession;
     isActive: boolean;
@@ -22,6 +23,7 @@ export const ProjectCreatorModal = ({
 }) => {
     let [project, setProject] = useState(projectInitialValues);
     let [tasks, setTasks] = useState([] as IProjectTask[]);
+    let update:Function = useOutletContext()
 
     function closeModal() {
         toggleModal(!isActive);
@@ -35,10 +37,14 @@ export const ProjectCreatorModal = ({
         };
 
         await ProjectService.create(projectData).then((data) => {
-            console.log(data)
+            toggleToast(data.message)
             setProject(projectInitialValues)
             setTasks([])
             closeModal()
+            update()
+        })
+        .catch((response: AxiosError<IErrorMessageResponse>) => {
+            toggleToast(extractErrorMessage(response), 400)
         });
     }
 

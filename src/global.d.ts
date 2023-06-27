@@ -27,6 +27,14 @@ interface IMessageResponse {
     message: string;
 }
 
+interface IErrorMessageResponse {
+    message: string;
+    status: string;
+    status_code: number;
+}
+
+type toggleToastCallback = (str:string, status?:number) => void;
+
 interface IProject {
     id: number;
     title: string;

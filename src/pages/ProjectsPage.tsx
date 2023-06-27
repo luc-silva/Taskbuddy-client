@@ -1,7 +1,7 @@
 import UserService from "../services/UserService";
 import ProjectService from "../services/ProjectService";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import { Button } from "../components/buttons/Button";
 import { ProjectCard } from "../components/cards/ProjectCard";
@@ -11,10 +11,12 @@ import styles from "./ProjectsPage.module.css";
 export const ProjectPage = ({
     isActive,
     toggleProjectCreator,
+    toggleToast,
     user,
 }: {
     isActive: boolean;
     toggleProjectCreator: Function;
+    toggleToast: toggleToastCallback;
     user: IUserSession;
 }) => {
     let [projects, setProjects] = useState([] as IProject[]);
@@ -22,7 +24,7 @@ export const ProjectPage = ({
 
     function handleDelete(id: number) {
         ProjectService.delete(id).then((data: IMessageResponse) => {
-            console.log(data.message);
+            toggleToast(data.message, 200);
             listProjects();
         });
     }
@@ -44,26 +46,31 @@ export const ProjectPage = ({
         }
     }, [user]);
     return (
-        <div className={styles["projects"]}>
-            <div className={styles["button-panel"]}>
-                <Button
-                    text="Add Project"
-                    isModalActive={isActive}
-                    toggleModal={toggleProjectCreator}
-                />
+        <>
+            <Outlet context={listProjects} />
+            <div className={styles["projects"]}>
+                <div className={styles["button-panel"]}>
+                    <Button
+                        text="Add Project"
+                        isModalActive={isActive}
+                        toggleModal={toggleProjectCreator}
+                    />
+                </div>
+                <div className={styles["projects__container"]}>
+                    {projects.length === 0 && (
+                        <p>You dont have any project yet.</p>
+                    )}
+                    {projects.map(({ id }: IProject, index: number) => {
+                        return (
+                            <ProjectCard
+                                handleDelete={handleDelete}
+                                id={id}
+                                key={index}
+                            />
+                        );
+                    })}
+                </div>
             </div>
-            <div className={styles["projects__container"]}>
-                {projects.length === 0 && <p>You dont have any project yet.</p>}
-                {projects.map(({ id }: IProject, index: number) => {
-                    return (
-                        <ProjectCard
-                            handleDelete={handleDelete}
-                            id={id}
-                            key={index}
-                        />
-                    );
-                })}
-            </div>
-        </div>
+        </>
     );
 };

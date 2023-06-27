@@ -18,7 +18,7 @@ class TodoService extends Service {
             });
     }
 
-    public async create(id: number, data: ITodo): Promise<ITodo> {
+    public async create(id: number, data: ITodo): Promise<IMessageResponse> {
         return await axios
             .post(`${this.base_url}todo/`, {...data, id:undefined ,user:{id}})
             .then(({ data }) => {

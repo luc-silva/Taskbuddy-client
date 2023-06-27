@@ -1,7 +1,8 @@
 import UserService from "../services/UserService";
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useState } from "react";
-
+import { AxiosError } from "axios";
+import { extractErrorMessage } from "../utils/tools";
 import { LoginForm } from "../components/forms/LoginForm";
 import { HeroText } from "../components/misc/HeroText";
 import { loginFormInitialValues } from "../constants/initial-values";
@@ -9,17 +10,22 @@ import { FooterText } from "../components/misc/FooterText";
 
 import styles from "./Login.module.css";
 
-export const Login = ({ setUser }: { setUser: Function }) => {
+
+export const Login = ({ setUser, toggleToast }: { setUser: Function, toggleToast:toggleToastCallback }) => {
     let [userForm, setUserForm] = useState(loginFormInitialValues);
     let navigate = useNavigate();
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        UserService.login(userForm).then((data: IUser) => {
-            setUser({ ...data, isLogged: true });
-            navigate("/project")
-        });
+        UserService.login(userForm)
+            .then((data: IUser) => {
+                setUser({ ...data, isLogged: true });
+                navigate("/project");
+            })
+            .catch((response: AxiosError<IErrorMessageResponse>) => {
+                toggleToast(extractErrorMessage(response), 400)
+            });
     }
     return (
         <main className={styles["login"]}>

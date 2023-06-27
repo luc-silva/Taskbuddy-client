@@ -8,21 +8,16 @@ import styles from "./TodoCard.module.css";
 export const TodoCard = ({
     id,
     updateTodos,
+    handleDelete,
 }: {
     id: number;
     updateTodos: Function;
+    handleDelete: Function;
 }) => {
     let [todo, setTodo] = useState(todoInitialValues);
-    let [concluded, toggleConcluded] = useState(false);
 
-    async function handleDelete() {
-        await TodoService.delete(id).then((data) => {
-            //showToast
-            updateTodos();
-        });
-    }
     async function handleCheckbox() {
-        let data = { ...todo, concluded: !todo.concluded }
+        let data = { ...todo, concluded: !todo.concluded };
         setTodo(data);
         await TodoService.update(id, data).then(() => {
             updateCard();
@@ -64,7 +59,9 @@ export const TodoCard = ({
                 <div className={styles["todo__btn-panel"]}>
                     <div
                         className={styles["delete-btn"]}
-                        onClick={handleDelete}
+                        onClick={() => {
+                            handleDelete(id);
+                        }}
                     >
                         <Trash size={30} color="red" weight="regular" />
                     </div>
