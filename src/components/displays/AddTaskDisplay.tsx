@@ -1,12 +1,9 @@
-import { ChangeEvent, useState } from "react";
-
-import { projectTaskInitialValues } from "../../constants/initial-values";
 import { ProjectCreatorTaskCard } from "../cards/ProjectCreatorTaskCard";
 import { TasksCreatorForm } from "../forms/TasksCreatorForm";
 
-import styles from "./ProjectCreatorTasks.module.css";
+import styles from "./AddTaskDisplay.module.css";
 
-export const ProjectCreatorTasks = ({
+export const AddTaskDisplay = ({
     toggleToast,
     projectTasks,
     setProjectTasks,

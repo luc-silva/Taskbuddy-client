@@ -21,7 +21,7 @@ export const Login = ({ setUser, toggleToast }: { setUser: Function, toggleToast
         UserService.login(userForm)
             .then((data: IUser) => {
                 setUser({ ...data, isLogged: true });
-                navigate("/project");
+                navigate("/dashboard");
             })
             .catch((response: AxiosError<IErrorMessageResponse>) => {
                 toggleToast(extractErrorMessage(response), 400)

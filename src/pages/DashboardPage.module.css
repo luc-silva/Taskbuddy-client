@@ -36,9 +36,6 @@
     font-size: 4rem;
     font-weight: 300;
 }
-.counter-display {
-    display: flex;
-}
 .important-tasks__display {
     display: flex;
     flex-direction: column;

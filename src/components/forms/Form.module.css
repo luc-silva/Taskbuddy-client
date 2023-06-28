@@ -15,6 +15,13 @@
 }
 .submit-input-container input {
     padding: 0.5rem 1rem;
+    cursor: pointer;
     color: white;
     background-color: var(--main-color);
+}
+.submit-input-container input:hover {
+    background-color: var(--lighter-main-color);
+}
+.submit-input-container input:focus{
+    background-color: var(--darker-main-color);
 }

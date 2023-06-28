@@ -9,7 +9,9 @@
     color: rgb(50, 50, 50);
 }
 :root {
-    --main-color: rgb(100, 175, 225);
+    --main-color: #64afe1;
+    --darker-main-color: #4596cc;
+    --lighter-main-color: #88c5ee;
     --gray: whitesmoke;
     --background-modal: rgba(0, 0, 0, 0.413);
 }

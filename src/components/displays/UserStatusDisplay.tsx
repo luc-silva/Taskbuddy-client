@@ -1,8 +1,14 @@
+import { useEffect, useState } from "react";
+import { userStatusInitialValues } from "../../constants/initial-values";
+import UserService from "../../services/UserService";
 import styles from "./UserStatusDisplay.module.css";
 
-export const UserStatusDisplay = ({
-}: {
-}) => { 
+export const UserStatusDisplay = ({ user }: { user: IUserSession }) => {
+    let [status, setStatus] = useState(userStatusInitialValues);
+
+    useEffect(() => {
+        UserService.getUserStatus(user.id).then(setStatus);
+    }, [user]);
     return (
         <div className={styles["status-container"]}>
             <div className={styles["status-container-title"]}>
@@ -14,11 +20,11 @@ export const UserStatusDisplay = ({
                     <strong>Projects</strong>
                     <div>
                         Projects planned:
-                        <span>{0}</span>
+                        <span>{status.project_total}</span>
                     </div>
                     <div>
                         Projects conclusion rate:
-                        <span>{0}%</span>
+                        <span>{status.project_conclusion_rate}%</span>
                     </div>
                     <div>
                         Average project tasks:
@@ -30,11 +36,11 @@ export const UserStatusDisplay = ({
                     <strong>To-dos</strong>
                     <div>
                         To-dos created:
-                        <span>{0}</span>
+                        <span>{status.todo_total}</span>
                     </div>
                     <div>
                         To-dos conclusion rate:
-                        <span>{0}%</span>
+                        <span>{status.project_conclusion_rate}%</span>
                     </div>
                 </div>
             </div>

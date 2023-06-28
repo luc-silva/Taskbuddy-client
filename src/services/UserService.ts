@@ -15,7 +15,7 @@ class UserService extends Service {
             .post(`${this.base_url}user/login`, data)
             .then(({ data }: { data: IUser }) => {
                 return data;
-            })
+            });
     }
 
     public async create(data: IRegisterForm): Promise<IMessageResponse> {
@@ -37,6 +37,22 @@ class UserService extends Service {
     public async listUserTodos(id: number): Promise<ITodo[]> {
         return await axios
             .get(`${this.base_url}user/${id}/todos`)
+            .then(({ data }) => {
+                return data;
+            });
+    }
+
+    public async listUserImportantTodos(id: number): Promise<ITodo[]> {
+        return await axios
+            .get(`${this.base_url}user/${id}/todos/important`)
+            .then(({ data }) => {
+                return data;
+            });
+    }
+
+    public async getUserStatus(id: number): Promise<IUserStatus> {
+        return axios
+            .get(`${this.base_url}user/${id}/status`)
             .then(({ data }) => {
                 return data;
             });

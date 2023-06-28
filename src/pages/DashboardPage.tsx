@@ -1,9 +1,11 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { ProgressionStatusDisplay } from "../components/displays/ProgressionStatusDisplay";
 import { GreetingsDisplay } from "../components/displays/GreetingsDisplay";
 import { ImportantTasksDisplay } from "../components/displays/ImportantTasksDisplay";
-import { UserStatusDisplay } from "../components/displays/UserStatusDisplay";
 import { ExternalLinks } from "../components/misc/ExternalLinks";
-import { useNavigate } from "react-router-dom";
+import { UserStatusDisplay } from "../components/displays/UserStatusDisplay";
 
 import styles from "./DashboardPage.module.css";
 
@@ -21,21 +23,10 @@ export const DashboardPage = ({ user }: { user: IUserSession }) => {
                     <GreetingsDisplay user={user} />
                 </div>
                 <div className={styles["container-counter"]}>
-                    <div className={styles["counter-display"]}>
-                        <div>
-                            <strong>{10}</strong>
-                            {/* of {user.todoList.length} tasks done! */}
-                        </div>
-                    </div>
-                    <div className={styles["counter-display"]}>
-                        <div>
-                            <strong>{20}</strong>
-                            {/* of {user.projectList.length} projects done! */}
-                        </div>
-                    </div>
+                    <ProgressionStatusDisplay user={user}/>
                 </div>
                 <div className={styles["important-tasks__display"]}>
-                    <ImportantTasksDisplay />
+                    <ImportantTasksDisplay user={user}/>
                 </div>
             </section>
 
@@ -51,7 +42,7 @@ export const DashboardPage = ({ user }: { user: IUserSession }) => {
                 </div>
 
                 <div className={styles["status__display"]}>
-                    <UserStatusDisplay />
+                    <UserStatusDisplay user={user}/>
                 </div>
             </aside>
         </main>

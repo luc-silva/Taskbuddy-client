@@ -23,7 +23,7 @@ export const ProjectCreatorForm = ({
             <div className={styles["input-container"]}>
                 <TextInput
                     inputName="title"
-                    maxLength={50}
+                    maxLength={40}
                     label
                     labelText="Title"
                     placeholder
@@ -46,7 +46,7 @@ export const ProjectCreatorForm = ({
             <div className={styles["input-container"]}>
                 <TextareaInput
                     inputName="description"
-                    maxLength={260}
+                    maxLength={255}
                     label
                     labelText="Description"
                     placeholder

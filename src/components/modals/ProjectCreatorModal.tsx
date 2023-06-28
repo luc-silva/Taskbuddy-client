@@ -1,14 +1,14 @@
 import ProjectService from "../../services/ProjectService";
 import { AxiosError } from "axios";
+import { useOutletContext } from "react-router-dom";
 import { extractErrorMessage } from "../../utils/tools";
 import {  useState } from "react";
 
-import { ProjectCreatorTasks } from "../ProjectsPage/ProjectCreatorTasks";
 import { projectInitialValues } from "../../constants/initial-values";
 import { ProjectCreatorForm } from "../forms/ProjectCreatorForm";
+import { AddTaskDisplay } from "../displays/AddTaskDisplay";
 
 import styles from "./ProjectCreatorModal.module.css";
-import { useOutletContext } from "react-router-dom";
 
 export const ProjectCreatorModal = ({
     toggleToast,
@@ -33,6 +33,7 @@ export const ProjectCreatorModal = ({
         let projectData = {
             ...project,
             user: { id: user.id },
+            concluded:false,
             projectTasks: tasks,
         };
 
@@ -66,8 +67,8 @@ export const ProjectCreatorModal = ({
                 <section className={styles["project-creator-main"]}>
                     <ProjectCreatorForm form={project} setForm={setProject} />
                 </section>
-                <section>
-                    <ProjectCreatorTasks
+                <section className={styles["project-creator__task-display"]}>
+                    <AddTaskDisplay
                         setProjectTasks={setTasks}
                         projectTasks={tasks}
                         toggleToast={toggleToast}

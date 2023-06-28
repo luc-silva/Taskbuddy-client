@@ -1,0 +1,4 @@
+.counter-display {
+    display: flex;
+    align-items: baseline;
+}

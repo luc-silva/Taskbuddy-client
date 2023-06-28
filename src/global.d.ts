@@ -10,8 +10,10 @@ interface IUser {
 
 interface IUserStatus {
     todo_total: number;
+    todo_concluded: number;
     todo_conclusion_rate: number;
     project_total: number;
+    project_concluded: number;
     project_conclusion_rate: number;
     project_tasks_average: number;
 }
@@ -33,7 +35,7 @@ interface IErrorMessageResponse {
     status_code: number;
 }
 
-type toggleToastCallback = (str:string, status?:number) => void;
+type toggleToastCallback = (str: string, status?: number) => void;
 
 interface IProject {
     id: number;
@@ -42,6 +44,7 @@ interface IProject {
     deadline: string;
     priority: string;
     user: IUser;
+    concluded: boolean;
     projectTasks: IProjectTask[];
 }
 

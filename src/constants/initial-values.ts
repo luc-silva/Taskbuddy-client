@@ -9,12 +9,23 @@ export const userSessionInitialValues: IUserSession = {
     isLogged: false,
 };
 
+export const userStatusInitialValues:IUserStatus = {
+    todo_total: 1,
+	todo_concluded: 0,
+	todo_conclusion_rate: 0.0,
+	project_total: 1,
+	project_concluded: 0,
+	project_conclusion_rate: 0.0,
+	project_tasks_average: 0.0
+}
+
 export const projectInitialValues: IProject = {
     deadline: "2023-06-15T00:00:00.000+00:00",
     description: "",
     id: 0,
     priority: "LOW",
     projectTasks: [],
+    concluded: false,
     title: "",
     user: { ...userInitialValues },
 };

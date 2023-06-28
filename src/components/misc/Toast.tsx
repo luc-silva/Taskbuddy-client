@@ -32,8 +32,8 @@ export const Toast = ({
         >
             <div className={styles["icon"]}>
                 {(type === "error" && (
-                    <Warning size={38}  />
-                )) || <Info size={38}  />}
+                    <Warning size={24}  />
+                )) || <Info size={24}  />}
             </div>
             <div className={styles["message"]}>
                 <p>{message}</p>

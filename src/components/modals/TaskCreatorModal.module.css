@@ -52,8 +52,8 @@
     position: absolute;
 }
 .submit-input-div input{
-    padding: 0.25rem 1rem ;
-    color: white;
+    padding: 0.5rem 1rem;
     cursor: pointer;
+    color: white;
     background-color: var(--main-color);
 }
