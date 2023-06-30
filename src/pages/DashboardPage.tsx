@@ -6,18 +6,14 @@ import { GreetingsDisplay } from "../components/displays/GreetingsDisplay";
 import { ImportantTasksDisplay } from "../components/displays/ImportantTasksDisplay";
 import { ExternalLinks } from "../components/misc/ExternalLinks";
 import { UserStatusDisplay } from "../components/displays/UserStatusDisplay";
+import { RedirectUser } from "../utils/RedirectUser";
 
 import styles from "./DashboardPage.module.css";
 
 export const DashboardPage = ({ user }: { user: IUserSession }) => {
-    const navigate = useNavigate()
-    useEffect(() => {
-        if(!user.isLogged){
-            navigate("/login")
-        }
-    }, [user])
     return (
         <main className={styles["dashboard"]}>
+            <RedirectUser user={user} />
             <section className={styles["dashboard__main"]}>
                 <div className={styles["greetings"]}>
                     <GreetingsDisplay user={user} />

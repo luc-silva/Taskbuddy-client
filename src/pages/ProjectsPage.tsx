@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 import { Button } from "../components/buttons/Button";
 import { ProjectCard } from "../components/cards/ProjectCard";
+import { RedirectUser } from "../utils/RedirectUser";
 
 import styles from "./ProjectsPage.module.css";
 
@@ -39,15 +40,11 @@ export const ProjectPage = ({
         if (user.id) {
             listProjects();
         }
-    }, []);
-    useEffect(() => {
-        if (!user.isLogged) {
-            navigate("/login");
-        }
-    }, [user]);
+    }, []); 
     return (
         <>
             <Outlet context={listProjects} />
+            <RedirectUser user={user} />
             <div className={styles["projects"]}>
                 <div className={styles["button-panel"]}>
                     <Button

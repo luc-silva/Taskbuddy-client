@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 import { Button } from "../components/buttons/Button";
 import { TodoCard } from "../components/cards/TodoCard";
+import { RedirectUser } from "../utils/RedirectUser";
 
 import styles from "./TodosPage.module.css";
 
@@ -40,15 +41,10 @@ export const TodosPage = ({
         listTodos();
     }, [user.id]);
 
-    useEffect(() => {
-        if (!user.isLogged) {
-            navigate("/login");
-        }
-    }, [user]);
-
     return (
         <>
             <Outlet context={listTodos} />
+            <RedirectUser user={user} />
             <div className={styles["todos-page"]}>
                 <div className={styles["tasks-button-panel"]}>
                     <Button

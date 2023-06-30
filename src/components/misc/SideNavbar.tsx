@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import {   useLocation, useNavigate } from "react-router-dom";
 import { userInitialValues } from "../../constants/initial-values";
 import {
-    Flag,
-    Gauge,
     List,
-    ListChecks,
     CaretDoubleLeft,
     SignOut,
 } from "phosphor-react";
